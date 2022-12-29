@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/splash/splash_screen_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
@@ -19,6 +20,7 @@ void main() {
         create: (context) =>
             SplashScreenBloc()..add(NavigateToHomeScreenEvent())),
             BlocProvider(create: (context) => NavbarBloc()..add(IntilPage())),
+            BlocProvider(create: (context)=> HomeBannerBloc()..add(PageIndex(0)))
   ], child:  MyApp()));
 }
 

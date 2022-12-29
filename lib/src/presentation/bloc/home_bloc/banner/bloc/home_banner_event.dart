@@ -11,5 +11,5 @@ class HomeInit extends HomeBannerEvent {
 
 class PageIndex extends HomeBannerEvent {
   int activIndex;
-  PageIndex({required this.activIndex});
+  PageIndex( this.activIndex);
 }
