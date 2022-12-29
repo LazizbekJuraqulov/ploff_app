@@ -4,9 +4,9 @@ part of 'home_banner_bloc.dart';
 abstract class HomeBannerEvent {}
 
 class HomeInit extends HomeBannerEvent {
-  int activIndex;
-  List toolBool;
-  HomeInit({required this.activIndex, required this.toolBool});
+  int? activIndex;
+  List? toolBool;
+  HomeInit({this.activIndex,this.toolBool});
 }
 
 class PageIndex extends HomeBannerEvent {

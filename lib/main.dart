@@ -20,7 +20,7 @@ void main() {
         create: (context) =>
             SplashScreenBloc()..add(NavigateToHomeScreenEvent())),
             BlocProvider(create: (context) => NavbarBloc()..add(IntilPage())),
-            BlocProvider(create: (context)=> HomeBannerBloc()..add(PageIndex(0)))
+            BlocProvider(create: (context)=> HomeBannerBloc()..add(HomeInit()))
   ], child:  MyApp()));
 }
 
