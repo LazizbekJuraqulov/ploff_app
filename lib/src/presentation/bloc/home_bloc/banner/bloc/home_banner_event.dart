@@ -13,3 +13,8 @@ class PageIndex extends HomeBannerEvent {
   int activIndex;
   PageIndex( this.activIndex);
 }
+class ActivePage extends HomeBannerEvent{
+  int activIndex=0;
+  List? toolBool;
+  ActivePage(this.activIndex,{this.toolBool});
+}
