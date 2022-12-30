@@ -141,7 +141,7 @@ itemBuilder: (context, index) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  state.posts[index].categories![index].title!.en!,
+                  state.posts[index].categories![index].description!.ru.toString(),
                   style: TextStyle(
                       fontSize: 22,
                       color: Color(0xff2B2A28),
