@@ -5,7 +5,7 @@ import 'package:ploff_app/src/domain/respository/product_respository.dart';
 class ProductRepo extends ProductRespository {
   @override
   Future<List<ProductIntites>> getProduct(int pageKey) async {
-    final datas = await PloffApi.productApi(pageKey);
+    final datas = await PloffApi.productApi();
     final poste =
         datas.map((e) => ProductIntites(e.categories, e.count)).toList();
 
