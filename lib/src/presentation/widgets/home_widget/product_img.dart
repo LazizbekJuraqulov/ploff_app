@@ -1,59 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 
-class PageBanner extends StatelessWidget {
-  const PageBanner({
-    Key? key,
-    required this.homeBloc,
-  }) : super(key: key);
-
-  final HomeBannerBloc homeBloc;
+class Banners extends StatelessWidget {
+  const Banners({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
+    final homeBloc = context.read<HomeBannerBloc>();
+    return BlocBuilder<HomeBannerBloc, HomeBannerState>(
+        builder: (context, state) {
+      if (state is Looading) {
+        return SliverToBoxAdapter(
           child: Column(
             children: [
-    Container(
-        height: 204,
-        margin: EdgeInsets.only(top: 16, bottom: 12),
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-            color: Color(0xffffffff),
-            borderRadius: BorderRadius.circular(12)),
-        child: PageView.builder(
-            itemCount: 5,
-            onPageChanged: (value) {
-              homeBloc.add(PageIndex(value));
-            },
-            itemBuilder: (context, index) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage("assets/home_/food.jpg"))),
-              );
-            })),
-            // const SizedBox(height: 8),
-            // SizedBox(
-            //   height: 4,
-            //   child: ListView.builder(
-            //     itemCount: 5,
-            //     itemBuilder: (context,index){
-            //     return InkWell(
-            //       onLongPress: () {
-            //         homeBloc.add(ActivePage(index));
-            //       },
-            //       child:,
-            //     )
-            //   }),
-            // ),
-
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(top: 16, bottom: 12),
+                  padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+                  decoration: BoxDecoration(
+                      color: Color(0xffffffff),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 160,
+                        child: PageView.builder(
+                            itemCount: state.banners.banners!.length,
+                            onPageChanged: (value) {
+                              homeBloc.add(PageIndex(value));
+                            },
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(right: 10),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(state
+                                            .banners.banners![index].image
+                                            .toString()))),
+                              );
+                            }),
+                      ),
+                      const SizedBox(height: 8),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 140),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 4,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: state.banners.banners!.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    child: Container(
+                                      margin: EdgeInsets.only(right: 1),
+                                      height: 4,
+                                      width: state.activIndex != index ? 8 : 16,
+                                      color: state.activIndex != index
+                                          ? Color(0xffF0F0F0)
+                                          : Color(0xffF4C009),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
             ],
           ),
         );
+      } else {
+        return Scaffold(
+          body: Container(),
+        );
+      }
+    });
   }
 }

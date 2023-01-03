@@ -8,7 +8,7 @@ class GetProduct extends UseCase {
 
   @override
   Future<List<ProductIntites>> call(dynamic params) async {
-    final result = await respost.getProduct(params);
+    final result = await respost.getProduct();
     return result;
   }
 }

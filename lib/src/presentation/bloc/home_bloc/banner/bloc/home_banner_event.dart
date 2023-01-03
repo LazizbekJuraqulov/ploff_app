@@ -6,15 +6,21 @@ abstract class HomeBannerEvent {}
 class HomeInit extends HomeBannerEvent {
   int? activIndex;
   List? toolBool;
-  HomeInit({this.activIndex,this.toolBool});
+  int? page;
+
+  HomeInit({this.activIndex, this.toolBool,this.page});
 }
 
+// ignore: must_be_immutable
 class PageIndex extends HomeBannerEvent {
-  int activIndex;
-  PageIndex( this.activIndex);
+  int index;
+  PageIndex(this.index);
 }
-class ActivePage extends HomeBannerEvent{
-  int activIndex=0;
+
+class ActivePage extends HomeBannerEvent {
+  int activIndex = 0;
   List? toolBool;
-  ActivePage(this.activIndex,{this.toolBool});
+  ActivePage(this.activIndex, {this.toolBool});
 }
+
+
