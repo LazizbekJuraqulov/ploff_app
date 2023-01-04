@@ -65,9 +65,12 @@ class Banners extends StatelessWidget {
                                       margin: EdgeInsets.only(right: 1),
                                       height: 4,
                                       width: state.activIndex != index ? 8 : 16,
-                                      color: state.activIndex != index
+                                      decoration: BoxDecoration(
+                                        color: state.activIndex != index
                                           ? Color(0xffF0F0F0)
                                           : Color(0xffF4C009),
+                                          borderRadius: BorderRadius.circular(55),
+                                      ),
                                     ),
                                   );
                                 }),

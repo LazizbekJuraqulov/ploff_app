@@ -3,7 +3,6 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
-import 'package:ploff_app/src/presentation/bloc/splash/splash_screen_bloc.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});

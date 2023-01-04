@@ -5,17 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
-import 'package:ploff_app/src/presentation/widgets/register_widget/auth_widget.dart';
+import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 
-class NotficionPage extends StatefulWidget {
-  NotficionPage({super.key ,required this.token});
-  String token;
+class NameRegister extends StatefulWidget {
+  NameRegister({super.key});
+  
 
   @override
-  State<NotficionPage> createState() => _NotficionPageState();
+  State<NameRegister> createState() => _NameRegisterState();
 }
 
-class _NotficionPageState extends State<NotficionPage> {
+class _NameRegisterState extends State<NameRegister> {
   final formGlobalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -49,20 +49,48 @@ class _NotficionPageState extends State<NotficionPage> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  child: Form(
-                    key: formGlobalKey,
-                    child: Pinput(
-                      validator: (v) {
-                        if (v!.isEmpty) {
-                          return "Неверный код";
-                        }
-                      },
-                      length: 6,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Имя фамилия",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xff000000),
+                          fontWeight: FontWeight.w400),
                     ),
-                  ),
+                    Form(
+                        key: formGlobalKey,
+                        child: TextFormField(
+                          controller: state.text,
+                          validator: ((value) {
+                            if (value!.isEmpty) {
+                              return "Введите ваше имя";
+                            }
+                          }),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Color(0xff2B2A28),
+                          ),
+                          cursorColor: Color(0xffFFCC00),
+                          decoration: InputDecoration(
+                            hintText: "Введите имя",
+                            border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.zero,
+                                borderSide: BorderSide(
+                                    color: Color(0xFF707070), width: 1)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    color: Color(0xFFFFCC00), width: 1)),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFFFCC00), width: 1),
+                            ),
+                          ),
+                        ))
+                  ],
                 ),
                 Column(
                   children: [
@@ -72,9 +100,7 @@ class _NotficionPageState extends State<NotficionPage> {
                           formGlobalKey.currentState!.save();
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return NameRegister(
-                            
-                            );
+                            return ProfilPage();
                           }));
                         }
                       },

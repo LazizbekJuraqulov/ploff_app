@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         if (state is Looading) {
           return Scaffold(
-            backgroundColor: const Color(0xffDBDBDB),
+            
             appBar: AppBar(
               elevation: 0,
               toolbarHeight: MediaQuery.of(context).size.height * 0.2,

@@ -1,10 +1,11 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ploff_app/src/constants/constans.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
-import 'package:ploff_app/src/presentation/bloc/splash/splash_screen_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/splashscreen/splash_screen_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
 import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
@@ -20,7 +21,8 @@ void main() {
         create: (context) =>
             SplashScreenBloc()..add(NavigateToHomeScreenEvent())),
             BlocProvider(create: (context) => NavbarBloc()..add(IntilPage())),
-            BlocProvider(create: (context)=> HomeBannerBloc()..add(HomeInit()))
+            BlocProvider(create: (context)=> HomeBannerBloc()..add(HomeInit())),
+            BlocProvider(create: (context)=>RegisterBloc()..add(PhoneEvent()))
   ], child:  MyApp()));
 }
 
@@ -31,8 +33,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Color(0xfffffffff)),
-      home:HomePage(),
+      theme: ThemeData(scaffoldBackgroundColor:bacgroundColor),
+      home:Registration(),
     );
   }
 }

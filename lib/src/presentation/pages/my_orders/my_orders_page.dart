@@ -18,7 +18,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> with TickerProviderStateMix
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffDBDBDB),
+      
       appBar: AppBar(
         elevation: 0.5,
         backgroundColor: Color(0xffffffff),
