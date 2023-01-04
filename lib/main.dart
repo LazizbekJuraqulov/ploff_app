@@ -12,17 +12,19 @@ import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
 import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
+import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 import 'package:ploff_app/src/presentation/widgets/splash_widget/language%20selection.dart';
 import 'src/presentation/pages/splash/splash_screen.dart';
 
 void main() {
+  
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
         create: (context) =>
             SplashScreenBloc()..add(NavigateToHomeScreenEvent())),
             BlocProvider(create: (context) => NavbarBloc()..add(IntilPage())),
             BlocProvider(create: (context)=> HomeBannerBloc()..add(HomeInit())),
-            BlocProvider(create: (context)=>RegisterBloc()..add(PhoneEvent()))
+            BlocProvider(create: (context)=>RegisterBloc()..add(RegisterInitialEvent()))
   ], child:  MyApp()));
 }
 
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor:bacgroundColor),
-      home:Registration(),
+      home:SpleshScreen(),
     );
   }
 }

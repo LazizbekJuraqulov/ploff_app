@@ -4,7 +4,9 @@ import 'package:meta/meta.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
 import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
+import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
+import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 
 part 'navbar_event.dart';
 part 'navbar_state.dart';
@@ -12,10 +14,11 @@ part 'navbar_state.dart';
 class NavbarBloc extends Bloc<NavbarEvent, NavbarState> {
   NavbarBloc() : super(NavbarInitial()) {
     on<AfterPage>((event, emit) {
-      emit(Active(event.activeIndex, 0));
+      emit(Active(event.activeIndex, 0,));
     });
     on<IntilPage>((event, emit) {
-      emit(Active(0, 0));
+      emit(Active(0, 0,));
     });
+   
   }
 }

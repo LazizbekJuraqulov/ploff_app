@@ -7,6 +7,7 @@ import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
+  static bool? nom = false;
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -30,6 +31,7 @@ class _NavBarState extends State<NavBar> {
             currentIndex: state.active,
             onTap: (v) {
               blocnav.add(AfterPage(v));
+              
             },
             items: [
               BottomNavigationBarItem(
@@ -45,8 +47,7 @@ class _NavBarState extends State<NavBar> {
               BottomNavigationBarItem(
                   icon: SvgPicture.asset("assets/svg_icons/shop.svg"),
                   label: "Мои заказы",
-                  activeIcon:
-                      SvgPicture.asset("assets/svg_icons/ashop.svg")),
+                  activeIcon: SvgPicture.asset("assets/svg_icons/ashop.svg")),
               BottomNavigationBarItem(
                   icon: SvgPicture.asset("assets/svg_icons/person.svg"),
                   label: "Профиль",

@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
 import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
+import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 
 class SelectLang extends StatefulWidget {
   const SelectLang({super.key});
@@ -50,7 +51,7 @@ class _SelectLangState extends State<SelectLang> {
                 onTap: () {
                   Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) {
-                    return NavBar();
+                    return RegisterWidget();
                   }), (route) => false);
                 },
                 child: Container(
@@ -79,7 +80,7 @@ class _SelectLangState extends State<SelectLang> {
                  onTap: () {
                   Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) {
-                    return NavBar();
+                    return RegisterWidget();
                   }), (route) => false);
                 },
                 child: Container(
@@ -108,7 +109,7 @@ class _SelectLangState extends State<SelectLang> {
                  onTap: () {
                   Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) {
-                    return NavBar();
+                    return RegisterWidget();
                   }), (route) => false);
                 },
                 child: Container(

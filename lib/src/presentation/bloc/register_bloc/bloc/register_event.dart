@@ -2,7 +2,14 @@ part of 'register_bloc.dart';
 
 @immutable
 abstract class RegisterEvent {}
-class InitalEvent extends RegisterEvent{}
-class PhoneEvent extends RegisterEvent{}
-class NameEvent extends RegisterEvent{}
-class RegistrEvent extends RegisterEvent {}
+class RegisterInitialEvent extends RegisterEvent{}
+class SignNumberEvent extends RegisterEvent{
+  BuildContext? context;
+  SignNumberEvent(this.context);
+}
+class SignNameEvent extends RegisterEvent{
+  BuildContext? context;
+  SignNameEvent(this.context);
+}
+class ConfirmLoginEvent extends RegisterEvent{}
+class RegisterConfirmEvent extends RegisterEvent{} 

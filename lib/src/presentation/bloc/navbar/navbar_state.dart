@@ -2,7 +2,11 @@ part of 'navbar_bloc.dart';
 
 @immutable
 abstract class NavbarState {
-  List page = [HomePage(), BasketPage(), MyOrdersPage(), ProfilPage()];
+  List page = [
+    HomePage(), 
+    BasketPage(), 
+    MyOrdersPage(), 
+    ProfilPage()];
 }
 
 class NavbarInitial extends NavbarState {}

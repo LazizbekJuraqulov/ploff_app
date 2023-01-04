@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
+import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 
 import '../../widgets/profil_widget/profil_widget.dart';
 
@@ -17,10 +18,9 @@ class ProfilPage extends StatefulWidget {
 class _ProfilPageState extends State<ProfilPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RegisterBloc,RegisterState>(builder: (context, state) {
+    return BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
       if (state is Phone) {
         return Scaffold(
-        
           appBar: AppBar(
             elevation: 0,
             centerTitle: true,
@@ -49,14 +49,14 @@ class _ProfilPageState extends State<ProfilPage> {
                             borderRadius: BorderRadius.circular(12)),
                         child: ListTile(
                           title: Text(
-                            state.text.toString(),
+                            state.nameController.text,
                             style: TextStyle(
                                 color: Color(0xff000000),
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600),
                           ),
-                          subtitle:  Text(
-                            state.nomer.toString(),
+                          subtitle: Text(
+                            "+998${state.numberController.text}",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xff5F5F5F),
@@ -134,21 +134,31 @@ class _ProfilPageState extends State<ProfilPage> {
                                                 ),
                                               ),
                                             ),
-                                            Container(
-                                              padding: EdgeInsets.all(10),
-                                              alignment: Alignment.center,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: Color(0xffFFCC00)),
-                                              child: Text(
-                                                "выход",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Color(0xff000000),
-                                                    fontWeight:
-                                                        FontWeight.w600),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pushAndRemoveUntil(
+                                                    context, MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return RegisterWidget();
+                                                }), (route) => false);
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.all(10),
+                                                alignment: Alignment.center,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: Color(0xffFFCC00)),
+                                                child: Text(
+                                                  "выход",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Color(0xff000000),
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
                                               ),
                                             ),
                                           ],

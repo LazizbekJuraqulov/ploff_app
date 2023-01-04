@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
-import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
+import 'package:ploff_app/src/presentation/pages/splash/splash_screen.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/auth_widget.dart';
 
-class NotficionPage extends StatefulWidget {
-  NotficionPage({super.key, required this.token});
-  String token;
+class RegisterNotficion extends StatelessWidget {
+  const RegisterNotficion({super.key});
 
-  @override
-  State<NotficionPage> createState() => _NotficionPageState();
-}
-
-class _NotficionPageState extends State<NotficionPage> {
   @override
   Widget build(BuildContext context) {
-    final registBloc = context.read<RegisterBloc>();
+    final registerBloc = context.read<RegisterBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
       if (state is Phone) {
         return Scaffold(
@@ -67,13 +61,19 @@ class _NotficionPageState extends State<NotficionPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        registBloc.add(SignNameEvent(context));
-                        Navigator.pushAndRemoveUntil(context,
+                        Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return NavBar();
-                        }), (route) => false);
+                          return SpleshScreen();
+                        }));
                       },
                       child: InkWell(
+                        onTap: () {
+                          registerBloc.add(RegisterConfirmEvent());
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return NameRegister();
+                          }));
+                        },
                         child: Container(
                           height: 52,
                           alignment: Alignment.center,
