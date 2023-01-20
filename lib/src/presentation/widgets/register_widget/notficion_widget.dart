@@ -68,10 +68,8 @@ class _NotficionPageState extends State<NotficionPage> {
                     InkWell(
                       onTap: () {
                         registBloc.add(SignNameEvent(context));
-                        Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(builder: (context) {
-                          return NavBar();
-                        }), (route) => false);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "navbar", (route) => false);
                       },
                       child: InkWell(
                         child: Container(

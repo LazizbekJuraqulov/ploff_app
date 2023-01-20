@@ -68,11 +68,11 @@ class RegisterWidget extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         blocPhone.add(SignNumberEvent(context));
-                        // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (context) {
-                        //   return NotficionPage(
-                        //       token: state.codeController.text);
-                        // }));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return NotficionPage(
+                              token: state.codeController.text);
+                        }));
                       },
                       child: Container(
                         height: 52,

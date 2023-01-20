@@ -15,7 +15,7 @@ class ProductPage extends StatelessWidget {
       if (state is Looading) {
         return SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: state.data.categories!.length,
+            childCount: state.data.length,
             (context, index) {
               return Container(
                 margin: EdgeInsets.only(bottom: 12),
@@ -28,81 +28,86 @@ class ProductPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      state.data.categories![index].title!.ru.toString(),
+                      state.data[index].title!.ru.toString(),
                       style: const TextStyle(
                           fontSize: 22,
                           color: Color(0xff2B2A28),
                           fontWeight: FontWeight.w600),
                     ),
-                    Container(
-                        padding: EdgeInsets.only(top: 16),
-                        child: ListView.separated(
-                          itemCount: state.data.categories!.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return SizedBox(
-                              height: 120,
-                              child: Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          state
-                                              .data.categories![index].title!.ru
-                                              .toString(),
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              color: Color(0xff2B2A28),
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Container(
-                                            padding: EdgeInsets.only(right: 16),
-                                            width: 239,
-                                            child: Text(
-                                              state.data.categories![index]
-                                                  .description!.ru
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(top: 16),
+                          child: ListView.separated(
+                            itemCount: state.data.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                height: 120,
+                                child: Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            state
+                                                .data[index].title!.ru
+                                                .toString(),
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xff2B2A28),
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Container(
+                                              padding: EdgeInsets.only(right: 16),
+                                              width: 239,
+                                              child: Text(
+                                                state.data[index]
+                                                    .description!.ru
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Color(0xff858585)),
+                                              )),
+                                          Text(
+                                              state.data[index]
+                                                  .outPrice
                                                   .toString(),
                                               style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color(0xff858585)),
-                                            )),
-                                        Text(
-                                            state.data.categories![index]
-                                                .products![1].outPrice
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Color(0xff000000),
-                                                fontWeight: FontWeight.w600)),
-                                      ],
-                                    ),
-                                    Container(
-                                      width: 88,
-                                      height: 88,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/home_/123.jpg")),
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                    )
-                                  ],
+                                                  fontSize: 15,
+                                                  color: Color(0xff000000),
+                                                  fontWeight: FontWeight.w600)),
+                                        ],
+                                      ),
+                                      Container(
+                                        width: 88,
+                                        height: 88,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/home_/123.jpg")),
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          separatorBuilder: ((context, index) {
-                            return Divider();
-                          }),
-                        )),
+                              );
+                            },
+                            separatorBuilder: ((context, index) {
+                              return Divider();
+                            }),
+                          )),
+                    ),
                   ],
                 ),
               );

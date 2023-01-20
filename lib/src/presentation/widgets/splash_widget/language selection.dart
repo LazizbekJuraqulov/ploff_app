@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
 import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
@@ -49,10 +51,8 @@ class _SelectLangState extends State<SelectLang> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context) {
-                    return RegisterWidget();
-                  }), (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "navbar", (route) => false);
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 12),
@@ -64,7 +64,7 @@ class _SelectLangState extends State<SelectLang> {
                   ),
                   child: const ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage("assets/img/uzb.png"),
+                      backgroundImage: AssetImage("assets/img/uzb.jpg"),
                     ),
                     title: Text(
                       "O`zbekcha",
@@ -77,12 +77,7 @@ class _SelectLangState extends State<SelectLang> {
                 ),
               ),
               InkWell(
-                 onTap: () {
-                  Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context) {
-                    return RegisterWidget();
-                  }), (route) => false);
-                },
+                onTap: () {},
                 child: Container(
                   margin: EdgeInsets.only(top: 16),
                   alignment: Alignment.center,
@@ -106,12 +101,7 @@ class _SelectLangState extends State<SelectLang> {
                 ),
               ),
               InkWell(
-                 onTap: () {
-                  Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context) {
-                    return RegisterWidget();
-                  }), (route) => false);
-                },
+                onTap: () {},
                 child: Container(
                   margin: EdgeInsets.only(top: 16),
                   alignment: Alignment.center,

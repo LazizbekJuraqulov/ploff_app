@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,6 +16,13 @@ class SpleshScreen extends StatefulWidget {
 }
 
 class _SpleshScreenState extends State<SpleshScreen> {
+  //  void initState() {
+  //   super.initState();
+  //   Timer(
+  //       Duration(seconds: 2),
+  //       () => Navigator.pushReplacement(
+  //           context, MaterialPageRoute(builder: (context) =>Container())));
+  // }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SplashScreenBloc, SplashScreenState>(
@@ -28,5 +37,3 @@ class _SpleshScreenState extends State<SpleshScreen> {
     }));
   }
 }
-
-

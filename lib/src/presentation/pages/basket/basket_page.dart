@@ -17,7 +17,6 @@ class _BasketPageState extends State<BasketPage> {
       
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xffffffff),
         title: Text(
           "Корзина",
           style: TextStyle(
@@ -53,20 +52,18 @@ class _BasketPageState extends State<BasketPage> {
           ),
           Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                alignment: Alignment.center,
-                height: 52,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color(0xffFFCC00)),
-                child:const Text(
-                  "+ Добавить продукт",
-                  style: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xff000000),
-                      fontWeight: FontWeight.w600),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
+                child: ElevatedButton(
+                  style:ElevatedButton.styleFrom(
+                    minimumSize: Size(MediaQuery.of(context).size.width, 52),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
+                  ),
+                  
+                  onPressed: (){}, child: Text("+ Добавить продукт",style:  TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff000000)),)),
               )
             ],
           )

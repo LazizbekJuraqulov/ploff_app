@@ -25,13 +25,12 @@ class _HomePageState extends State<HomePage> {
             
             appBar: AppBar(
               elevation: 0,
-              toolbarHeight: MediaQuery.of(context).size.height * 0.2,
-              backgroundColor: const Color(0xffffffff),
+              toolbarHeight: MediaQuery.of(context).size.height * 0.22,
               title: Container(
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 7),
                       child: SizedBox(
                         child: Row(
                           children: [
@@ -96,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 56,
                       child: ListView.builder(
-                          itemCount: state.data.categories!.length,
+                          itemCount: state.data.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -113,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(8),
                                     color: state.tolBool![index]? Color(0xffFFCC00):Color(0xffF5F5F5)),
                                 child: Text(
-                                  state.data.categories![index].title!.ru
+                                  state.data[index].title!.ru
                                       .toString(),
                                   style: TextStyle(
                                       fontSize: 15, color: Color(0xff2B2A28)),

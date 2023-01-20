@@ -8,7 +8,7 @@ class HomeBannerInitial extends HomeBannerState {}
 class Looading extends HomeBannerState {
   List? tolBool;
   int activIndex;
-  ProductModel data;
+  List<ProductEntity> data;
   BannersModel banners;
   int page;
 

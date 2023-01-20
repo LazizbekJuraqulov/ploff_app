@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ploff_app/src/constants/constans.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 
 import '../../widgets/register_widget/widget.dart';
@@ -22,9 +23,8 @@ class _RegistrationState extends State<Registration> {
     return BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
       if (state is Phone) {
         return Scaffold(
-          backgroundColor: Color(0xffffffff),
           appBar: AppBar(
-              backgroundColor: Color(0xffffffff),
+            backgroundColor: bacgroundColor,
               elevation: 0,
               leading: IconButton(
                 onPressed: () {

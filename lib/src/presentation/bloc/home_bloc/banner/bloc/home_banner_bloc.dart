@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:ploff_app/src/data/datasourse/remote/banner_api_maneger.dart';
@@ -17,7 +15,7 @@ class HomeBannerBloc extends Bloc<HomeBannerEvent, HomeBannerState> {
   HomeBannerBloc() : super(HomeBannerInitial()) {
     on<HomeBannerEvent>((event, emit) {});
     on<HomeInit>((event, emit) async {
-      final respon = await PloffApi.productApi();
+      final respon = await GetProduct(ProductRepo()).call();
       final banner = await BannersApi.productApi();
 
       emit(Looading(
@@ -38,17 +36,15 @@ class HomeBannerBloc extends Bloc<HomeBannerEvent, HomeBannerState> {
           page: state.page));
     });
     on<ActivePage>((event, emit) {
-       final state = this.state as Looading;
-        state.tolBool![event.activIndex] = !state.tolBool![event.activIndex];
+      final state = this.state as Looading;
+      state.tolBool![event.activIndex] = !state.tolBool![event.activIndex];
 
       emit(Looading(
           tolBool: state.tolBool,
           activIndex: state.activIndex,
           data: state.data,
           banners: state.banners,
-          page: state.page
-          ));
-      
+          page: state.page));
     });
   }
 }

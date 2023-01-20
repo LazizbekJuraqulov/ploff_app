@@ -24,7 +24,6 @@ class _ProfilPageState extends State<ProfilPage> {
           appBar: AppBar(
             elevation: 0,
             centerTitle: true,
-            backgroundColor: Color(0xffffffff),
             title: const Text(
               "Профиль",
               style: TextStyle(

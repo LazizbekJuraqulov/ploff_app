@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/constants/constans.dart';
@@ -14,18 +13,15 @@ import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 import 'package:ploff_app/src/presentation/widgets/splash_widget/language%20selection.dart';
+import 'package:ploff_app/src/routes/routes.dart';
 import 'src/presentation/pages/splash/splash_screen.dart';
 
 void main() {
-  
   runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (context) => HomeBannerBloc()..add(HomeInit())),
     BlocProvider(
-        create: (context) =>
-            SplashScreenBloc()..add(NavigateToHomeScreenEvent())),
-            BlocProvider(create: (context) => NavbarBloc()..add(IntilPage())),
-            BlocProvider(create: (context)=> HomeBannerBloc()..add(HomeInit())),
-            BlocProvider(create: (context)=>RegisterBloc()..add(RegisterInitialEvent()))
-  ], child:  MyApp()));
+        create: (context) => RegisterBloc()..add(RegisterInitialEvent()))
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,10 +29,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        
+      initialRoute: "register",
+      onGenerateRoute: (settings) => RoutesPage.getRoters(settings),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor:bacgroundColor),
-      home:SpleshScreen(),
+      theme: ThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xffFFCC00),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          )),
+          progressIndicatorTheme:
+              ProgressIndicatorThemeData(color: Color(0xffFFCC00)),
+          scaffoldBackgroundColor: bacgroundColor,
+          appBarTheme: const AppBarTheme(backgroundColor: Color(0xfffffffff))),
     );
   }
 }

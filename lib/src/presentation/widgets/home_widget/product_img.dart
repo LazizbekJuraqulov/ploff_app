@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 
 class Banners extends StatelessWidget {
@@ -13,7 +14,11 @@ class Banners extends StatelessWidget {
     return BlocBuilder<HomeBannerBloc, HomeBannerState>(
         builder: (context, state) {
       if (state is Looading) {
-        return SliverToBoxAdapter(
+        if (state.banners.banners!.isEmpty) {
+          return SliverGap(0);
+        }
+        else{
+          return SliverToBoxAdapter(
           child: Column(
             children: [
               Container(
@@ -82,6 +87,7 @@ class Banners extends StatelessWidget {
             ],
           ),
         );
+        }
       } else {
         return Scaffold(
           body: Container(),

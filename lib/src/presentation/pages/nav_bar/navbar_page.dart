@@ -4,6 +4,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
+import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
+import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
+import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
+import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
+import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -15,12 +20,19 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   @override
+  
+
+  @override
   Widget build(BuildContext context) {
     final blocnav = context.read<NavbarBloc>();
     return BlocBuilder<NavbarBloc, NavbarState>(builder: ((context, state) {
       if (state is Active) {
         return Scaffold(
-          body: state.page[state.active],
+          body: IndexedStack(
+            index: state.active,
+            //children: [HomePage(),NavBar.nom! ?BasketPage():RegisterWidget(),NavBar.nom! ?MyOrdersPage():RegisterWidget(),NavBar.nom! ?ProfilPage():RegisterWidget()],
+             children: [HomePage(),BasketPage(),MyOrdersPage(),ProfilPage()],
+          ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             fixedColor: Color(0xffFFCC00),
@@ -31,7 +43,6 @@ class _NavBarState extends State<NavBar> {
             currentIndex: state.active,
             onTap: (v) {
               blocnav.add(AfterPage(v));
-              
             },
             items: [
               BottomNavigationBarItem(
