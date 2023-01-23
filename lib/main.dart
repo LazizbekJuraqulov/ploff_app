@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ploff_app/src/constants/constans.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
@@ -15,12 +16,16 @@ import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 import 'package:ploff_app/src/presentation/widgets/splash_widget/language%20selection.dart';
 import 'package:ploff_app/src/routes/routes.dart';
 import 'src/presentation/pages/splash/splash_screen.dart';
+import 'package:hive/hive.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox("product_box");
+
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => HomeBannerBloc()..add(HomeInit())),
-    BlocProvider(
-        create: (context) => RegisterBloc()..add(RegisterInitialEvent()))
+    
   ], child: const MyApp()));
 }
 
@@ -29,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "register",
+      initialRoute: "/",
       onGenerateRoute: (settings) => RoutesPage.getRoters(settings),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

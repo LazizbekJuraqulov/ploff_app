@@ -48,16 +48,10 @@ class RoutesPage {
         
         case "profil":
        return  MaterialPageRoute(builder: (context) {
-          return ProfilPage();
+          return ProfilPage(name: "",nomer: "",);
         });
-         case "product":
-       return  MaterialPageRoute(builder: (context) {
-          return ProductOrder();
-        });
-       case "register":
-       return  MaterialPageRoute(builder: (context) {
-          return Registration();
-        });
+        
+     
 
       default:
     }

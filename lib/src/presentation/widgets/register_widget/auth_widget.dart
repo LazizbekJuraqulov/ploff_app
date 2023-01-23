@@ -4,9 +4,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:ploff_app/src/data/datasourse/remote/register_confrim.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
+import 'package:ploff_app/src/presentation/widgets/register_widget/notficion_register.widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NameRegister extends StatefulWidget {
   NameRegister({super.key});
@@ -16,6 +19,7 @@ class NameRegister extends StatefulWidget {
 }
 
 class _NameRegisterState extends State<NameRegister> {
+  TextEditingController nameControler = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
@@ -59,7 +63,7 @@ class _NameRegisterState extends State<NameRegister> {
                           fontWeight: FontWeight.w400),
                     ),
                     TextFormField(
-                      controller: state.nameController,
+                      controller: nameControler,
                       validator: ((value) {
                         if (value!.isEmpty) {
                           return "Введите ваше имя";
@@ -92,11 +96,21 @@ class _NameRegisterState extends State<NameRegister> {
                 Column(
                   children: [
                     InkWell(
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(context,
+                      onTap: () async {
+                        SharedPreferences nomer =
+                            await SharedPreferences.getInstance();
+                        final phone = (nomer.getString("phone"));
+                        final isAvtive = (nomer.setBool("Active", true));
+
+                        await RegisterApi.registerApi(
+                          nameControler.text,
+                          phone.toString(),
+                          true
+                        );
+                        Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return NavBar();
-                        }), (route) => false);
+                          return RegisterNotficion();
+                        }));
                       },
                       child: Container(
                         height: 52,

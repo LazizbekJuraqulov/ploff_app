@@ -9,7 +9,12 @@ import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 import '../../widgets/profil_widget/profil_widget.dart';
 
 class ProfilPage extends StatefulWidget {
-  const ProfilPage({super.key});
+  ProfilPage({
+    super.key,
+    required this.name,required this.nomer
+  });
+  String name;
+  String nomer;
 
   @override
   State<ProfilPage> createState() => _ProfilPageState();
@@ -48,14 +53,14 @@ class _ProfilPageState extends State<ProfilPage> {
                             borderRadius: BorderRadius.circular(12)),
                         child: ListTile(
                           title: Text(
-                            state.nameController.text,
+                            widget.name.toString(),
                             style: TextStyle(
                                 color: Color(0xff000000),
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
-                            "+998${state.numberController.text}",
+                            "+998${widget.nomer}",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xff5F5F5F),
@@ -134,13 +139,6 @@ class _ProfilPageState extends State<ProfilPage> {
                                               ),
                                             ),
                                             InkWell(
-                                              onTap: () {
-                                                Navigator.pushAndRemoveUntil(
-                                                    context, MaterialPageRoute(
-                                                        builder: (context) {
-                                                  return RegisterWidget();
-                                                }), (route) => false);
-                                              },
                                               child: Container(
                                                 padding: EdgeInsets.all(10),
                                                 alignment: Alignment.center,

@@ -7,10 +7,10 @@ import 'package:pinput/pinput.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/auth_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotficionPage extends StatefulWidget {
-  NotficionPage({super.key, required this.token});
-  String token;
+  NotficionPage({super.key,});
 
   @override
   State<NotficionPage> createState() => _NotficionPageState();
@@ -52,7 +52,7 @@ class _NotficionPageState extends State<NotficionPage> {
                 ),
                 SizedBox(
                   child: Pinput(
-                    //controller: state.codeController,
+                    controller: state.codeController,
                     validator: (v) {
                       if (v!.isEmpty) {
                         return "Неверный код";
@@ -66,8 +66,12 @@ class _NotficionPageState extends State<NotficionPage> {
                 Column(
                   children: [
                     InkWell(
-                      onTap: () {
-                        registBloc.add(SignNameEvent(context));
+                      onTap: () async{
+                       // registBloc.add(SignNameEvent(context));
+                       SharedPreferences nomer =
+                            await SharedPreferences.getInstance();
+                        
+                        final isAvtive = (nomer.setBool("Active", true));
                         Navigator.pushNamedAndRemoveUntil(
                             context, "navbar", (route) => false);
                       },

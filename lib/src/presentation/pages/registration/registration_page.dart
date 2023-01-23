@@ -28,7 +28,7 @@ class _RegistrationState extends State<Registration> {
               elevation: 0,
               leading: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(context, "navbar", (route) => false);
                 },
                 icon: SvgPicture.asset("assets/svg_icons/close.svg"),
               )),

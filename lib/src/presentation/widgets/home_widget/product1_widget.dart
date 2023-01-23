@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
+import 'package:ploff_app/src/presentation/widgets/home_widget/product_order.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -35,8 +36,18 @@ class ProductPage extends StatelessWidget {
                           fontWeight: FontWeight.w600),
                     ),
                     InkWell(
-                      onTap: (){
-
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return BlocProvider(
+                            create: (context) =>
+                                HomeBannerBloc()..add(HomeInit()),
+                            child: ProductOrder(
+                              
+                              narx: index
+                            ),
+                          );
+                        }));
                       },
                       child: Container(
                           padding: EdgeInsets.only(top: 16),
@@ -59,8 +70,7 @@ class ProductPage extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            state
-                                                .data[index].title!.ru
+                                            state.data[index].title!.ru
                                                 .toString(),
                                             style: const TextStyle(
                                                 fontSize: 15,
@@ -68,19 +78,19 @@ class ProductPage extends StatelessWidget {
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           Container(
-                                              padding: EdgeInsets.only(right: 16),
+                                              padding:
+                                                  EdgeInsets.only(right: 16),
                                               width: 239,
                                               child: Text(
-                                                state.data[index]
-                                                    .description!.ru
+                                                state
+                                                    .data[index].description!.ru
                                                     .toString(),
                                                 style: TextStyle(
                                                     fontSize: 13,
                                                     color: Color(0xff858585)),
                                               )),
                                           Text(
-                                              state.data[index]
-                                                  .outPrice
+                                              state.data[index].outPrice
                                                   .toString(),
                                               style: TextStyle(
                                                   fontSize: 15,

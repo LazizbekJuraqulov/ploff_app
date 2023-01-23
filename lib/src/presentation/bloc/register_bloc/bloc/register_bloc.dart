@@ -11,11 +11,12 @@ part 'register_state.dart';
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc() : super(RegisterInitial()) {
     on<RegisterInitialEvent>((event, emit) {
-      
       emit(Phone());
     });
     on<SignNumberEvent>((event, emit) async {
       final state = this.state as Phone;
+      final phone =
+          await PhoneApi.postApi(event.context, state.numberController.text);
       await PhoneApi.postApi(event.context, state.numberController.text);
     });
     on<SignNameEvent>((event, emit) async {
@@ -27,8 +28,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     });
     on<RegisterConfirmEvent>((event, emit) async {
       final state = this.state as Phone;
-      await RegisterApi.registerApi(
-          state.codeController.text, state.numberController.text);
+      
     });
   }
 }

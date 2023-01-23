@@ -4,10 +4,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
 import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
+import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 
 class NavBar extends StatefulWidget {
@@ -30,8 +32,8 @@ class _NavBarState extends State<NavBar> {
         return Scaffold(
           body: IndexedStack(
             index: state.active,
-            //children: [HomePage(),NavBar.nom! ?BasketPage():RegisterWidget(),NavBar.nom! ?MyOrdersPage():RegisterWidget(),NavBar.nom! ?ProfilPage():RegisterWidget()],
-             children: [HomePage(),BasketPage(),MyOrdersPage(),ProfilPage()],
+            
+             children: [HomePage(),BasketPage(), MyOrdersPage(),BlocProvider(create: ((context) => RegisterBloc()..add(RegisterInitialEvent())),child:ProfilPage(name: state.name, nomer: state.nomer) ,)],
           ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
@@ -42,7 +44,7 @@ class _NavBarState extends State<NavBar> {
             unselectedFontSize: 10,
             currentIndex: state.active,
             onTap: (v) {
-              blocnav.add(AfterPage(v));
+              blocnav.add(AfterPage(v,context));
             },
             items: [
               BottomNavigationBarItem(

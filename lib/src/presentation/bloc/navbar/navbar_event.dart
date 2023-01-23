@@ -7,7 +7,6 @@ class IntilPage extends NavbarEvent {}
 
 class AfterPage extends NavbarEvent {
   int activeIndex;
-  AfterPage(this.activeIndex);
+  BuildContext context;
+  AfterPage(this.activeIndex,this.context);
 }
-
-

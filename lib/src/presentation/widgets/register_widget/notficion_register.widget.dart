@@ -7,6 +7,7 @@ import 'package:pinput/pinput.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/splash/splash_screen.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/auth_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterNotficion extends StatelessWidget {
   const RegisterNotficion({super.key});
@@ -60,33 +61,26 @@ class RegisterNotficion extends StatelessWidget {
                 Column(
                   children: [
                     InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return SpleshScreen();
-                        }));
+                      onTap: () async{
+                       SharedPreferences nomer =
+                            await SharedPreferences.getInstance();
+                        
+                        final isAvtive = (nomer.setBool("Active", true));
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "navbar", (route) => false);
                       },
-                      child: InkWell(
-                        onTap: () {
-                          registerBloc.add(RegisterConfirmEvent());
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return NameRegister();
-                          }));
-                        },
-                        child: Container(
-                          height: 52,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: Color(0xffFFCC00),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: const Text(
-                            "Продолжить",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xff000000),
-                                fontWeight: FontWeight.w600),
-                          ),
+                      child: Container(
+                        height: 52,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Color(0xffFFCC00),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: const Text(
+                          "Продолжить",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xff000000),
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                     )
