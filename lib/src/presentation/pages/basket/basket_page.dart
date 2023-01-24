@@ -12,17 +12,7 @@ class BasketPage extends StatefulWidget {
 }
 
 class _BasketPageState extends State<BasketPage> {
-  List<Map<String, dynamic>> dates = [];
-  final productBox = Hive.box("product_box");
-  void hivedata() {
-    final data = productBox.keys.map((key) {
-      final item = productBox.get(key);
-      return {"key": key, "title": item["title"], "narx": item["narx"]};
-    }).toList();
-    setState(() {
-      dates=data.reversed.toList();
-    });
-    }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,16 +34,7 @@ class _BasketPageState extends State<BasketPage> {
             ),
           ],
         ),
-        body: ListView.builder(
-          itemCount: dates.length,
-          itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              title: dates[index]["title"],
-              subtitle:dates[index]["narx"] ,
-            ),
-          );
-        })
+       
         // Column(
         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
         //   children: [

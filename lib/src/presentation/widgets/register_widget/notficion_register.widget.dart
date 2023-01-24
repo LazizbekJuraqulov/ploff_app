@@ -47,7 +47,6 @@ class RegisterNotficion extends StatelessWidget {
                 ),
                 SizedBox(
                   child: Pinput(
-                    //controller: state.codeController,
                     validator: (v) {
                       if (v!.isEmpty) {
                         return "Неверный код";

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 import 'package:ploff_app/src/presentation/widgets/home_widget/product_order.dart';
 
@@ -41,11 +42,8 @@ class ProductPage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) {
                           return BlocProvider(
                             create: (context) =>
-                                HomeBannerBloc()..add(HomeInit()),
-                            child: ProductOrder(
-                              
-                              narx: index
-                            ),
+                                OrderproductBloc()..add(OrderProduct(state.data[index].id)),
+                            child: ProductOrder(),
                           );
                         }));
                       },

@@ -7,12 +7,14 @@ import 'package:gap/gap.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 import 'package:hive/hive.dart';
 
 class ProductOrder extends StatefulWidget {
-  int narx;
-  ProductOrder({required this.narx});
+  const ProductOrder({
+    super.key,
+  });
 
   @override
   State<ProductOrder> createState() => _ProductOrderState();
@@ -20,16 +22,11 @@ class ProductOrder extends StatefulWidget {
 
 class _ProductOrderState extends State<ProductOrder> {
   @override
-  void initState() {
-    setState(() {});
-
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBannerBloc, HomeBannerState>(
+    final orderbloc = context.read<OrderproductBloc>();
+    return BlocBuilder<OrderproductBloc, OrderproductState>(
       builder: (context, state) {
-        if (state is Looading) {
+        if (state is OrderState) {
           return Scaffold(
             body: CustomScrollView(
               slivers: [
@@ -94,7 +91,7 @@ class _ProductOrderState extends State<ProductOrder> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                state.data[widget.narx].title!.ru.toString(),
+                                state.data!.title.ru.toString(),
                                 style: TextStyle(
                                     fontSize: 17,
                                     color: Color(0xff2B2A28),
@@ -141,7 +138,9 @@ class _ProductOrderState extends State<ProductOrder> {
                                     child: Row(
                                       children: [
                                         TextButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              orderbloc.add(DecrementEvent());
+                                            },
                                             child: Text(
                                               "-",
                                               style: TextStyle(
@@ -149,14 +148,16 @@ class _ProductOrderState extends State<ProductOrder> {
                                                   fontSize: 20),
                                             )),
                                         Text(
-                                          "1",
+                                          state.price.toString(),
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w500,
                                               color: Color(0xff141414)),
                                         ),
                                         TextButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              orderbloc.add(IncrementEvent());
+                                            },
                                             child: Text(
                                               "+",
                                               style: TextStyle(
@@ -167,7 +168,7 @@ class _ProductOrderState extends State<ProductOrder> {
                                     ),
                                   ),
                                   Text(
-                                    state.data[widget.narx].outPrice.toString(),
+                                    (state.data!.outPrice*state.price).toString(),
                                     style: TextStyle(
                                         fontSize: 17,
                                         color: Color(0xff000000),
@@ -184,20 +185,7 @@ class _ProductOrderState extends State<ProductOrder> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8))),
-                                  onPressed: () async {
-                                    final _productBox = Hive.box("product_box");
-                                    Future<void> _createItem(
-                                        Map<String, dynamic> item) async {
-                                      await _productBox.add(item);
-                                      print("ishladi ${_productBox.length}");
-                                    }
-
-                                    _createItem({
-                                      "title": state.data[widget.narx].title.toString(),
-                                      "narx": state.data[widget.narx].outPrice.toString()
-                                    });
-                                    setState(() {});
-                                  },
+                                  onPressed: () {},
                                   child: Text(
                                     "Добавить в корзину ",
                                     style: TextStyle(

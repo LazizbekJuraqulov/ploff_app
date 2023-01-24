@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/splashscreen/splash_screen_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
@@ -46,9 +47,12 @@ class RoutesPage {
           return MyOrdersPage();
         });
         
-        case "profil":
-       return  MaterialPageRoute(builder: (context) {
-          return ProfilPage(name: "",nomer: "",);
+       case "profil":
+        return MaterialPageRoute(builder: (context) {
+          return BlocProvider(
+                      create: (context) =>RegisterBloc()..add(RegisterInitialEvent()),
+                      child: ProfilPage(name: "",nomer: "",),
+                    );;
         });
         
      

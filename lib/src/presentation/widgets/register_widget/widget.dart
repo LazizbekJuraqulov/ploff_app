@@ -80,6 +80,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         SharedPreferences pref =
                             await SharedPreferences.getInstance();
                         pref.setString("phone", nomerController.text);
+                      
                       },
                       child: Container(
                         height: 52,

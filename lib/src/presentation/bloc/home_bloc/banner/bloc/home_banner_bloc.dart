@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:ploff_app/src/data/datasourse/local/hive.dart';
 import 'package:ploff_app/src/data/datasourse/remote/banner_api_maneger.dart';
 import 'package:ploff_app/src/data/datasourse/remote/product_api_maneger.dart';
 import 'package:ploff_app/src/data/dto/banners_model.dart';
@@ -17,13 +18,15 @@ class HomeBannerBloc extends Bloc<HomeBannerEvent, HomeBannerState> {
     on<HomeInit>((event, emit) async {
       final respon = await GetProduct(ProductRepo()).call();
       final banner = await BannersApi.productApi();
+    
 
       emit(Looading(
           tolBool: List.generate(10, (index) => false),
           activIndex: 0,
           data: respon,
           banners: banner,
-          page: 0));
+          page: 0,
+          ));
     });
     on<PageIndex>((event, emit) {
       final state = this.state as Looading;

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,7 +23,7 @@ import 'package:hive/hive.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox("product_box");
+  
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => HomeBannerBloc()..add(HomeInit())),

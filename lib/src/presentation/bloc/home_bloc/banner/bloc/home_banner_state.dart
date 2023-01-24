@@ -11,11 +11,13 @@ class Looading extends HomeBannerState {
   List<ProductEntity> data;
   BannersModel banners;
   int page;
+  
 
   Looading(
       {required this.tolBool,
       required this.activIndex,
       required this.data,
       required this.banners,
-      required this.page});
+      required this.page,
+      });
 }
