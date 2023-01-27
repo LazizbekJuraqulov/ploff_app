@@ -11,6 +11,7 @@ import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
 import 'package:ploff_app/src/presentation/pages/splash/splash_screen.dart';
+import 'package:ploff_app/src/presentation/widgets/design_widget/design_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/home_widget/product_order.dart';
 
 class RoutesPage {
@@ -53,6 +54,10 @@ class RoutesPage {
                       create: (context) =>RegisterBloc()..add(RegisterInitialEvent()),
                       child: ProfilPage(name: "",nomer: "",),
                     );;
+        });
+         case "design":
+       return MaterialPageRoute(builder: (context) {
+          return DesignPage();
         });
         
      

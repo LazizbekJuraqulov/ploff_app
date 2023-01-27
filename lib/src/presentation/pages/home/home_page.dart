@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 56,
                       child: ListView.builder(
-                          itemCount: state.data.length,
+                          itemCount: state.data!.categories!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(8),
                                     color: state.tolBool![index]? Color(0xffFFCC00):Color(0xffF5F5F5)),
                                 child: Text(
-                                  state.data[index].title!.ru
+                                  state.data!.categories![index].title!.ru
                                       .toString(),
                                   style: TextStyle(
                                       fontSize: 15, color: Color(0xff2B2A28)),

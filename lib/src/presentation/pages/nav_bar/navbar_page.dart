@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ploff_app/src/data/datasourse/local/hive_class.dart';
+import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
@@ -33,7 +35,8 @@ class _NavBarState extends State<NavBar> {
           body: IndexedStack(
             index: state.active,
             
-             children: [HomePage(),BasketPage(), MyOrdersPage(),BlocProvider(create: ((context) => RegisterBloc()..add(RegisterInitialEvent())),child:ProfilPage(name: state.name, nomer: state.nomer) ,)],
+             children: [HomePage(), BlocProvider(create: (context)=>OrderproductBloc()..add(InitilEvent()),child: BasketPage(),),
+              MyOrdersPage(),BlocProvider(create: ((context) => RegisterBloc()..add(RegisterInitialEvent())),child:ProfilPage(name: state.name, nomer: state.nomer) ,)],
           ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

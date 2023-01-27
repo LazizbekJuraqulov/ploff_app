@@ -6,20 +6,24 @@ abstract class OrderproductState {}
 class OrderproductInitial extends OrderproductState {}
 
 class OrderState extends OrderproductState {
-  IdProduct ? data;
-  int price=1;
-  OrderState({ this.data, required this.price});
+  IdProduct? postmen;
+  int price = 1;
+  List<HiveProduct> ?hivedata;
+  OrderState({
+    this.postmen,
+    required this.price,
+    this.hivedata
+  });
+
   OrderState copyWith({
-    IdProduct? data,
-    int price=1,
-  }){
+    IdProduct? postmen,
+    int price = 1,
+    List<HiveProduct>? hivedata,
+  }) {
     return OrderState(
-      data: data ?? this.data,
-      price: price
+      postmen: postmen ?? this.postmen,
+      price: price,
+      hivedata: hivedata ?? this.hivedata,
     );
   }
 }
-
-
-
-

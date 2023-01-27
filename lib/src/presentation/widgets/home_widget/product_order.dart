@@ -7,9 +7,12 @@ import 'package:gap/gap.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ploff_app/src/data/datasourse/local/hive_box.dart';
+import 'package:ploff_app/src/data/datasourse/local/hive_class.dart';
+import 'package:ploff_app/src/data/dto/hive_product_model.dart';
+import 'package:ploff_app/src/data/dto/detel_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
-import 'package:hive/hive.dart';
 
 class ProductOrder extends StatefulWidget {
   const ProductOrder({
@@ -21,6 +24,7 @@ class ProductOrder extends StatefulWidget {
 }
 
 class _ProductOrderState extends State<ProductOrder> {
+  bool isData = false;
   @override
   Widget build(BuildContext context) {
     final orderbloc = context.read<OrderproductBloc>();
@@ -53,7 +57,7 @@ class _ProductOrderState extends State<ProductOrder> {
                       children: [
                         Positioned(
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image:
@@ -65,7 +69,7 @@ class _ProductOrderState extends State<ProductOrder> {
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: 7,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Color(0xffffffff),
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(12),
@@ -81,7 +85,7 @@ class _ProductOrderState extends State<ProductOrder> {
                       children: [
                         Container(
                           padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(12),
                                 bottomRight: Radius.circular(12)),
@@ -91,14 +95,14 @@ class _ProductOrderState extends State<ProductOrder> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                state.data!.title.ru.toString(),
-                                style: TextStyle(
+                                state.postmen!.title.ru.toString(),
+                                style: const TextStyle(
                                     fontSize: 17,
                                     color: Color(0xff2B2A28),
                                     fontWeight: FontWeight.w600),
                               ),
                               Gap(12),
-                              Text(
+                              const Text(
                                 "Своим именем чайханский плов обязан старой ташкентской традиции «ош», когда мужчины собираются по четвергам в чайхане собственно «на ош», что означает «на плов».",
                                 style: TextStyle(
                                     fontSize: 15,
@@ -113,7 +117,7 @@ class _ProductOrderState extends State<ProductOrder> {
                         ),
                         Container(
                           padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(12),
                                 bottomRight: Radius.circular(12)),
@@ -122,7 +126,7 @@ class _ProductOrderState extends State<ProductOrder> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Размер*",
                                 style: TextStyle(
                                     fontSize: 17,
@@ -141,7 +145,7 @@ class _ProductOrderState extends State<ProductOrder> {
                                             onPressed: () {
                                               orderbloc.add(DecrementEvent());
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "-",
                                               style: TextStyle(
                                                   color: Color(0xff24292E),
@@ -149,7 +153,7 @@ class _ProductOrderState extends State<ProductOrder> {
                                             )),
                                         Text(
                                           state.price.toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w500,
                                               color: Color(0xff141414)),
@@ -158,7 +162,7 @@ class _ProductOrderState extends State<ProductOrder> {
                                             onPressed: () {
                                               orderbloc.add(IncrementEvent());
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "+",
                                               style: TextStyle(
                                                   color: Color(0xff24292E),
@@ -168,8 +172,9 @@ class _ProductOrderState extends State<ProductOrder> {
                                     ),
                                   ),
                                   Text(
-                                    (state.data!.outPrice*state.price).toString(),
-                                    style: TextStyle(
+                                    (state.postmen!.outPrice * state.price)
+                                        .toString(),
+                                    style: const TextStyle(
                                         fontSize: 17,
                                         color: Color(0xff000000),
                                         fontWeight: FontWeight.w600),
@@ -185,9 +190,58 @@ class _ProductOrderState extends State<ProductOrder> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8))),
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Добавить в корзину ",
+                                  onPressed: () async {
+                                    
+                                    HiveProduct mData = HiveProduct(
+                                        id: state.postmen!.id,
+                                        slug: state.postmen!.slug,
+                                        title: state.postmen!.title.ru,
+                                        code: state.postmen!.code,
+                                        isDivisible: state.postmen!.isDivisible,
+                                        count: state.postmen!.count,
+                                        tags: state.postmen!.tags,
+                                        inPrice: state.postmen!.inPrice,
+                                        outPrice: state.postmen!.outPrice,
+                                        image: state.postmen!.image,
+                                        gallery: state.postmen!.gallery,
+                                        favourites: state.postmen!.favourites,
+                                        active: state.postmen!.active,
+                                        order: state.postmen!.order,
+                                        createdAt: state.postmen!.createdAt,
+                                        iikoId: state.postmen!.iikoId,
+                                        jowiId: state.postmen!.jowiId,
+                                        shipperId: state.postmen!.shipperId,
+                                        priceChangers:
+                                            state.postmen!.priceChangers,
+                                        currency: state.postmen!.currency,
+                                        type: state.postmen!.type,
+                                        properties: state.postmen!.properties,
+                                        productProperty:
+                                            state.postmen!.productProperty,
+                                        iikoSourceActionId:
+                                            state.postmen!.iikoSourceActionId,
+                                        iikoGroupId: state.postmen!.iikoGroupId,
+                                        activeInMenu:
+                                            state.postmen!.activeInMenu,
+                                        offAlways: state.postmen!.offAlways,
+                                        fromTime: state.postmen!.fromTime,
+                                        toTime: state.postmen!.toTime,
+                                        ikpu: state.postmen!.ikpu,
+                                        packageCode: state.postmen!.packageCode,
+                                        variantProducts:
+                                            state.postmen!.variantProducts,
+                                        parentId: state.postmen!.parentId,
+                                        hasModifier: state.postmen!.hasModifier,
+                                        rkeeperId: state.postmen!.rkeeperId,
+                                        description:
+                                            state.postmen!.description.ru);
+
+                                    final moviesBox = HiveBox.getbox();
+                                    await moviesBox.put(mData.id, mData);
+                                    //orderbloc.add(AddProduct(product: mData));
+                                  },
+                                  child:const Text(
+                                     "Добавить в корзину ",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600,

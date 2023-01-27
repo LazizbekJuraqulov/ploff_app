@@ -18,7 +18,7 @@ class HiveProduct {
         required this.title,
         required this.code,
         required this.description,
-        required this.categories,
+        //required this.categories,
         this.brand,
         required this.isDivisible,
         required this.count,
@@ -59,89 +59,89 @@ class HiveProduct {
     @HiveField(1)
     String slug;
     @HiveField(2)
-    Description title;
+    String title;
     @HiveField(3)
     String code;
     @HiveField(4)
-    Description description;
+    String description;
+    //@HiveField(5)
+    //List<Category> categories;
     @HiveField(5)
-    List<Category> categories;
-    @HiveField(6)
     dynamic brand;
-    @HiveField(7)
+    @HiveField(6)
     bool isDivisible;
-    @HiveField(8)
+    @HiveField(7)
     String count;
-    @HiveField(9)
+    @HiveField(8)
     List<dynamic> tags;
-    @HiveField(10)
+    @HiveField(9)
     dynamic measurement;
-    @HiveField(11)
+    @HiveField(10)
     dynamic rate;
-    @HiveField(12)
+    @HiveField(11)
     int inPrice;
-    @HiveField(13)
+    @HiveField(12)
     int outPrice;
-    @HiveField(14)
+    @HiveField(13)
     String image;
-    @HiveField(15)
+    @HiveField(14)
     List<dynamic> gallery;
-    @HiveField(16)
+    @HiveField(15)
     List<dynamic> favourites;
-    @HiveField(17)
+    @HiveField(16)
     bool active;
-    @HiveField(18)
+    @HiveField(17)
     String order;
-    @HiveField(19)
+    @HiveField(18)
     String createdAt;
-    @HiveField(20)
+    @HiveField(19)
     String iikoId;
-    @HiveField(21)
+    @HiveField(20)
     String jowiId;
-    @HiveField(22)
+    @HiveField(21)
     String shipperId;
-    @HiveField(23)
+    @HiveField(22)
     List<dynamic> priceChangers;
-    @HiveField(24)
+    @HiveField(23)
     String currency;
-    @HiveField(25)
+    @HiveField(24)
     String type;
-    @HiveField(26)
+    @HiveField(25)
     List<dynamic> properties;
-    @HiveField(27)
+    @HiveField(26)
     List<dynamic> productProperty;
-    @HiveField(28)
+    @HiveField(27)
     String iikoSourceActionId;
-    @HiveField(29)
+    @HiveField(28)
     String iikoGroupId;
-    @HiveField(30)
+    @HiveField(29)
     bool activeInMenu;
-    @HiveField(31)
+    @HiveField(30)
     bool offAlways;
-    @HiveField(32)
+    @HiveField(31)
     String fromTime;
-    @HiveField(33)
+    @HiveField(32)
     String toTime;
-    @HiveField(34)
+    @HiveField(33)
     String ikpu;
-    @HiveField(35)
+    @HiveField(34)
     String packageCode;
-    @HiveField(36)
+    @HiveField(35)
     List<dynamic> variantProducts;
-    @HiveField(37)
+    @HiveField(36)
     String parentId;
-    @HiveField(38)
+    @HiveField(37)
     bool hasModifier;
-    @HiveField(39)
+    @HiveField(38)
     String rkeeperId;
 
     factory HiveProduct.fromJson(Map<String, dynamic> json) => HiveProduct(
         id: json["id"],
         slug: json["slug"],
-        title: Description.fromJson(json["title"]),
+        title: (json["title"]),
         code: json["code"],
-        description: Description.fromJson(json["description"]),
-        categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
+        description: (json["description"]),
+       // categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
         brand: json["brand"],
         isDivisible: json["is_divisible"],
         count: json["count"],
@@ -181,10 +181,10 @@ class HiveProduct {
     Map<String, dynamic> toJson() => {
         "id": id,
         "slug": slug,
-        "title": title.toJson(),
+        "title": title,
         "code": code,
-        "description": description.toJson(),
-        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
+        "description": description,
+        //"categories": List<dynamic>.from(categories.map((x) => x.toJson())),
         "brand": brand,
         "is_divisible": isDivisible,
         "count": count,
@@ -221,105 +221,4 @@ class HiveProduct {
         "rkeeper_id": rkeeperId,
     };
 }
-@HiveType(typeId: 1)
-class Category {
-    Category({
-        required this.id,
-        required this.slug,
-        required this.title,
-        required this.description,
-        required this.parentId,
-        required this.image,
-        required this.propertyIds,
-        required this.active,
-        required this.orderNo,
-        required this.createdAt,
-        required this.shipperId,
-        required this.iikoId,
-        required this.jowiId,
-    });
-    @HiveField(40)
-    String id;
-    @HiveField(41)
-    String slug;
-    @HiveField(42)
-    Description title;
-    @HiveField(43)
-    Description description;
-    @HiveField(44)
-    String parentId;
-    @HiveField(45)
-    String image;
-    @HiveField(46)
-    List<dynamic> propertyIds;
-    @HiveField(47)
-    bool active;
-    @HiveField(48)
-    String orderNo;
-    @HiveField(49)
-    String createdAt;
-    @HiveField(50)
-    String shipperId;
-    @HiveField(51)
-    String iikoId;
-    @HiveField(53)
-    String jowiId;
 
-    factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        slug: json["slug"],
-        title: Description.fromJson(json["title"]),
-        description: Description.fromJson(json["description"]),
-        parentId: json["parent_id"],
-        image: json["image"],
-        propertyIds: List<dynamic>.from(json["property_ids"].map((x) => x)),
-        active: json["active"],
-        orderNo: json["order_no"],
-        createdAt: json["created_at"],
-        shipperId: json["shipper_id"],
-        iikoId: json["iiko_id"],
-        jowiId: json["jowi_id"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "slug": slug,
-        "title": title.toJson(),
-        "description": description.toJson(),
-        "parent_id": parentId,
-        "image": image,
-        "property_ids": List<dynamic>.from(propertyIds.map((x) => x)),
-        "active": active,
-        "order_no": orderNo,
-        "created_at": createdAt,
-        "shipper_id": shipperId,
-        "iiko_id": iikoId,
-        "jowi_id": jowiId,
-    };
-}
-@HiveType(typeId: 2)
-class Description {
-    Description({
-        required this.uz,
-        required this.ru,
-        required this.en,
-    });
-    @HiveField(54)
-    String uz;
-    @HiveField(55)
-    String ru;
-    @HiveField(56)
-    String en;
-
-    factory Description.fromJson(Map<String, dynamic> json) => Description(
-        uz: json["uz"],
-        ru: json["ru"],
-        en: json["en"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "uz": uz,
-        "ru": ru,
-        "en": en,
-    };
-}
