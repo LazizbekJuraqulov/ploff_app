@@ -38,10 +38,16 @@ class NavbarBloc extends Bloc<NavbarEvent, NavbarState> {
         }
       }
 
-      emit(Active(event.activeIndex, state.active, state.isTrue,state.name,state.nomer));
+      emit(Active(event.activeIndex,  state.isTrue, state.name,
+          state.nomer));
     });
     on<IntilPage>((event, emit) {
-      emit(Active(0, 0, false, "", ""));
+      emit(Active(0,  false, "", ""));
+    });
+    on<Transfer>((event, emit) {
+      final state = this.state as Active;
+
+      emit(Active(0,  false, "", ""));
     });
   }
 }

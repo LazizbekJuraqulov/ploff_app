@@ -8,5 +8,9 @@ class IntilPage extends NavbarEvent {}
 class AfterPage extends NavbarEvent {
   int activeIndex;
   BuildContext context;
-  AfterPage(this.activeIndex,this.context);
+  AfterPage(this.activeIndex, this.context);
+}
+
+class Transfer extends NavbarEvent {
+  
 }

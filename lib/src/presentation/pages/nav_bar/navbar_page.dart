@@ -14,6 +14,8 @@ import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 
+import '../../bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
+
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
   static bool? nom = false;
@@ -24,8 +26,6 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   @override
-  
-
   @override
   Widget build(BuildContext context) {
     final blocnav = context.read<NavbarBloc>();
@@ -33,10 +33,23 @@ class _NavBarState extends State<NavBar> {
       if (state is Active) {
         return Scaffold(
           body: IndexedStack(
-            index: state.active,
-            
-             children: [HomePage(), BlocProvider(create: (context)=>OrderproductBloc()..add(InitilEvent()),child: BasketPage(),),
-              MyOrdersPage(),BlocProvider(create: ((context) => RegisterBloc()..add(RegisterInitialEvent())),child:ProfilPage(name: state.name, nomer: state.nomer) ,)],
+            index: state.activeIndex,
+            children: [
+              BlocProvider(
+                create: (context) => HomeBannerBloc()..add(HomeInit()),
+                child: HomePage(),
+              ),
+              BlocProvider(
+                create: (context) => OrderproductBloc()..add(InitilEvent()),
+                child: BasketPage(),
+              ),
+              MyOrdersPage(),
+              BlocProvider(
+                create: ((context) =>
+                    RegisterBloc()..add(RegisterInitialEvent())),
+                child: ProfilPage(name: state.name, nomer: state.nomer),
+              )
+            ],
           ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
@@ -45,9 +58,9 @@ class _NavBarState extends State<NavBar> {
             showUnselectedLabels: true,
             selectedLabelStyle: TextStyle(fontSize: 10),
             unselectedFontSize: 10,
-            currentIndex: state.active,
+            currentIndex: state.activeIndex,
             onTap: (v) {
-              blocnav.add(AfterPage(v,context));
+              blocnav.add(AfterPage(v, context));
             },
             items: [
               BottomNavigationBarItem(

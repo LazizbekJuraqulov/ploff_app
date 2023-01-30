@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/splashscreen/splash_screen_bloc.dart';
@@ -13,6 +14,8 @@ import 'package:ploff_app/src/presentation/pages/registration/registration_page.
 import 'package:ploff_app/src/presentation/pages/splash/splash_screen.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/design_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/home_widget/product_order.dart';
+
+import '../presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
 
 class RoutesPage {
   static getRoters(RouteSettings settings) {
@@ -35,7 +38,8 @@ class RoutesPage {
       
       case "home":
        return MaterialPageRoute(builder: (context) {
-          return HomePage();
+          return BlocProvider(create: (context) => HomeBannerBloc()..add(HomeInit()),child: HomePage(),);
+
         });
         
       case "basket":
@@ -55,9 +59,13 @@ class RoutesPage {
                       child: ProfilPage(name: "",nomer: "",),
                     );;
         });
+       
          case "design":
-       return MaterialPageRoute(builder: (context) {
-          return DesignPage();
+        return MaterialPageRoute(builder: (context) {
+          return BlocProvider(
+                      create: (context) => DisegnBlocBloc()..add(DisegnnEvent()),
+                      child:DesignPage(),
+                    );
         });
         
      

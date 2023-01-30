@@ -8,6 +8,7 @@ import 'package:ploff_app/src/data/datasourse/local/hive_box.dart';
 import 'package:ploff_app/src/data/datasourse/local/hive_class.dart';
 import 'package:ploff_app/src/data/dto/hive_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/widgets/basket_widget/basket_isEmpty_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/basket_widget/basket_isnotEmty_widget.dart';
 
@@ -111,7 +112,7 @@ class _BasketPageState extends State<BasketPage> {
                                                       BorderRadius.circular(
                                                           8))),
                                           onPressed: () {
-                                            orderBloc.add(DeleteAllProduct(product: ""));
+                                            orderBloc.add(DeleteAllProduct());
                                             Navigator.pop(context);
                                           },
                                           child: const Text(

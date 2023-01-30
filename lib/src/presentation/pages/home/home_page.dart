@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
-import 'package:ploff_app/src/presentation/widgets/home_widget/product1_widget.dart';
+import 'package:ploff_app/src/presentation/widgets/home_widget/product_home_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/home_widget/product_img.dart';
 
 class HomePage extends StatefulWidget {

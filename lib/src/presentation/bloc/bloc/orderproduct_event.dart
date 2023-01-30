@@ -35,6 +35,5 @@ class DeleteProduct extends OrderproductEvent {
 }
 
 class DeleteAllProduct extends OrderproductEvent {
-  String product;
-  DeleteAllProduct({required this.product});
+  
 }

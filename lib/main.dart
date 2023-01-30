@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -46,12 +45,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xffFFCC00),
+            backgroundColor:const Color(0xffFFCC00),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           )),
           progressIndicatorTheme:
-              ProgressIndicatorThemeData(color: Color(0xffFFCC00)),
+             const ProgressIndicatorThemeData(color: Color(0xffFFCC00)),
           scaffoldBackgroundColor: bacgroundColor,
           appBarTheme: const AppBarTheme(backgroundColor: Color(0xfffffffff))),
     );

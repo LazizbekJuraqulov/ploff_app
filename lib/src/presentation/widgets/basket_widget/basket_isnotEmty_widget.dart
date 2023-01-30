@@ -66,7 +66,7 @@ class BasketisNotEmpty extends StatelessWidget {
                                       children: [
                                         Text(data[index].title),
                                         Text(
-                                            "${data[index].outPrice * state.price} сум"),
+                                            "${data[index].outPrice *int.parse(data[index].count)} сум"),
                                       ],
                                     ),
                                     Column(
@@ -95,7 +95,7 @@ class BasketisNotEmpty extends StatelessWidget {
                                                         DecrementEvent());
                                                   },
                                                   icon: Icon(Icons.remove)),
-                                              Text(state.price.toString()),
+                                              Text(data[index].count.toString()),
                                               IconButton(
                                                   onPressed: () {
                                                     orderBloc.add(

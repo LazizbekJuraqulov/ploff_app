@@ -6,3 +6,12 @@ abstract class DisegnBlocEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class DisegnnEvent extends DisegnBlocEvent {}
+
+class ActivIconEvent extends DisegnBlocEvent {
+  int activIcon;
+  ActivIconEvent(
+    this.activIcon,
+  );
+}

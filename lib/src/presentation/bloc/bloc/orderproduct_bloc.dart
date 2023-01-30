@@ -63,14 +63,14 @@ class OrderproductBloc extends Bloc<OrderproductEvent, OrderproductState> {
     });
     on<DeleteProduct>((event, emit) async {
       final state = this.state as OrderState;
-      Future<void> box = HiveBox.getbox().delete(event.product);
+      final box = await HiveBox.getbox().delete(event.product);
 
       emit(state.copyWith());
     });
 
     on<DeleteAllProduct>((event, emit) async {
       final state = this.state as OrderState;
-      Future<void> box = HiveBox.getbox().clear();
+      final box = await HiveBox.getbox().clear();
       emit(state.copyWith());
     });
   }
