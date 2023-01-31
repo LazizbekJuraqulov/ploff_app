@@ -8,7 +8,7 @@ class OrderproductInitial extends OrderproductState {}
 class OrderState extends OrderproductState {
   IdProduct? postmen;
   int price = 1;
-  List<HiveProduct> ?hivedata;
+  List<HiveProductModel> ?hivedata;
   OrderState({
     this.postmen,
     required this.price,
@@ -18,7 +18,7 @@ class OrderState extends OrderproductState {
   OrderState copyWith({
     IdProduct? postmen,
     int price = 1,
-    List<HiveProduct>? hivedata,
+    List<HiveProductModel>? hivedata,
   }) {
     return OrderState(
       postmen: postmen ?? this.postmen,

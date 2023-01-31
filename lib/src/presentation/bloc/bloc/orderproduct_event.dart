@@ -24,7 +24,7 @@ class InitilEvent extends OrderproductEvent {}
 //   List<Object?> get props => [product];
 // }
 class AddProduct extends OrderproductEvent {
-  HiveProduct product;
+  HiveProductModel product;
 
   AddProduct({required this.product});
 }

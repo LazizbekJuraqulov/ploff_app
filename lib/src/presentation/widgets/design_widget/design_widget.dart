@@ -87,124 +87,158 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           ),
           body: TabBarView(controller: tabController, children: [
             DeliveryPage(disegnbloc: disegnbloc, list: list),
-            Container(
-              child: ListView(children: [
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      color: Color(0xffffffff),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Ближайший филиал",
-                        style: TextStyle(fontSize: 17),
-                      ),
-                      Gap(16),
-                      Container(
-                        height: 156,
-                        child: YandexMap(),
-                      ),
-                      //Gap(16),
-                      ListView.separated(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              leading: Image.asset("assets/img/filial.png"),
-                              title: Text("xcvvfds"),
-                              subtitle: Text("sfadgsdfbfd"),
-                              trailing: state.isActiv![index]
-                                  ? SvgPicture.asset("assets/home_/activ_.svg")
-                                  : SvgPicture.asset(
-                                      "assets/home_/not_activ_.svg"),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return Divider();
-                          },
-                          itemCount: 2),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 12),
-                  decoration: BoxDecoration(
-                      color: Color(0xffffffff),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                        child: Text(
-                          "Тип оплаты",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff2B2A28)),
+            Stack(
+              children: [
+                ListView(children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                        color: Color(0xffffffff),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Ближайший филиал",
+                          style: TextStyle(fontSize: 17),
                         ),
-                      ),
-                      ListView.separated(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                disegnbloc.add(ActivIconEvent(index));
+                        Gap(16),
+                        Container(
+                          height: 156,
+                          //child: YandexMap(),
+                        ),
+                        //Gap(16),
+                        SizedBox(
+                          child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Image.asset("assets/img/filial.png"),
+                                  title: Text(state.branch!.branches[index].address),
+                                  subtitle: Text(state.branch!.branches[index].address),
+                                  trailing: state.isActiv![index]
+                                      ? SvgPicture.asset("assets/home_/activ_.svg")
+                                      : SvgPicture.asset(
+                                          "assets/home_/not_activ_.svg"),
+                                );
                               },
-                              child: ListTile(
-                                leading: Icon(Icons.access_alarm),
-                                title: Text("Наличные"),
-                                trailing: state.isActiv![index]
-                                    ? SvgPicture.asset(
-                                        "assets/home_/activ_.svg")
-                                    : SvgPicture.asset(
-                                        "assets/home_/not_activ_.svg"),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return Divider();
-                          },
-                          itemCount: 3),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 12),
-                  decoration: BoxDecoration(
-                      color: Color(0xffffffff),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                        child: Text(
-                          "Чек",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff2B2A28)),
+                              separatorBuilder: (context, index) {
+                                return const Divider();
+                              },
+                              itemCount: 5),
                         ),
-                      ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                                title: Text("Свадебный плов х2"),
-                                trailing: Text("10 000 сум"));
-                          },
-                          itemCount: 3),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ]),
+                  Container(
+                    margin: EdgeInsets.only(top: 12),
+                    decoration: BoxDecoration(
+                        color: Color(0xffffffff),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding:
+                          EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                          child: Text(
+                            "Тип оплаты",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff2B2A28)),
+                          ),
+                        ),
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  disegnbloc.add(ActivIconEvent(index));
+                                },
+                                child: ListTile(
+                                  leading: Icon(Icons.access_alarm),
+                                  title: Text("Наличные"),
+                                  trailing: state.isActiv![index]
+                                      ? SvgPicture.asset(
+                                          "assets/home_/activ_.svg")
+                                      : SvgPicture.asset(
+                                          "assets/home_/not_activ_.svg"),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return Divider();
+                            },
+                            itemCount: 3),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 12),
+                    decoration: BoxDecoration(
+                        color: Color(0xffffffff),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                       const Padding(
+                          padding:
+                             EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                          child: Text(
+                            "Чек",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff2B2A28)),
+                          ),
+                        ),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics:const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                  title: Text("Свадебный плов х2"),
+                                  trailing: Text("10 000 сум"));
+                            },
+                            itemCount: 3),
+                      ],
+                    ),
+                  ),
+                  Gap(100)
+                ]),
+                 Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 12),
+                        color: Color(0xffffffff),
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 16, top: 16),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                minimumSize:
+                                    Size(MediaQuery.of(context).size.width, 52),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8))),
+                            onPressed: () {},
+                            child: Text(
+                              "Заказать",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff000000)),
+                            )),
+                      )
+                    ],
+                  )),
+              ],
             ),
           ]),
         );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ploff_app/src/data/dto/hive_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
 
-Future<dynamic> alertwidget(BuildContext context, List<HiveProduct> data, int index,OrderproductBloc orderBloc ) {
+Future<dynamic> alertwidget(BuildContext context, List<HiveProductModel> data, int index,OrderproductBloc orderBloc ) {
     return showDialog(
                                                   context: context,
                                                   builder: (context) { 

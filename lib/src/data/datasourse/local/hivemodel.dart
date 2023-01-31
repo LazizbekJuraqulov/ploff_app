@@ -1,8 +1,8 @@
  import 'package:ploff_app/src/data/dto/hive_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
 
-HiveProduct hiveModel(OrderState state,int count) {
-    return HiveProduct(
+HiveProductModel hiveModel(OrderState state,int count) {
+    return HiveProductModel(
                                       id: state.postmen!.id,
                                       slug: state.postmen!.slug,
                                       title: state.postmen!.title.ru,

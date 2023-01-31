@@ -192,7 +192,7 @@ class _ProductOrderState extends State<ProductOrder> {
                                           borderRadius:
                                               BorderRadius.circular(8))),
                                   onPressed: () async {
-                                    HiveProduct mData = hiveModel(state,state.price);
+                                    HiveProductModel mData = hiveModel(state,state.price);
 
                                     final moviesBox = HiveBox.getbox();
                                     await moviesBox.put(mData.id, mData,);

@@ -7,18 +7,18 @@ import '../../dto/hive_product_model.dart';
 class HiveDataBase {
  
 
-  List<HiveProduct> getProduct(Box box) {
-    return box.values.toList().cast<HiveProduct>();
+  static List<HiveProductModel> getProduct(Box box) {
+    return box.values.toList().cast<HiveProductModel>();
   }
 
-  Future<void> addProduct(Box box, HiveProduct product) async {
+  Future<void> addProduct(Box box, HiveProductModel product) async {
     await box.put(product.id, product);
   }
-  Future<void> updateProduct(Box box, HiveProduct product) async {
+  Future<void> updateProduct(Box box, HiveProductModel product) async {
     await box.put(product.id, product);
   }
 
-   Future<void> deleteProduct(Box box, HiveProduct product) async {
+   Future<void> deleteProduct(Box box, HiveProductModel product) async {
     await box.delete(product.id);
   }
    Future<void> deleteAllProduct(Box box) async {

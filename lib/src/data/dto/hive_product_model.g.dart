@@ -6,17 +6,17 @@ part of 'hive_product_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HiveProductAdapter extends TypeAdapter<HiveProduct> {
+class HiveProductModelAdapter extends TypeAdapter<HiveProductModel> {
   @override
   final int typeId = 0;
 
   @override
-  HiveProduct read(BinaryReader reader) {
+  HiveProductModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveProduct(
+    return HiveProductModel(
       id: fields[0] as String,
       slug: fields[1] as String,
       title: fields[2] as String,
@@ -60,7 +60,7 @@ class HiveProductAdapter extends TypeAdapter<HiveProduct> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveProduct obj) {
+  void write(BinaryWriter writer, HiveProductModel obj) {
     writer
       ..writeByte(39)
       ..writeByte(0)
@@ -149,7 +149,7 @@ class HiveProductAdapter extends TypeAdapter<HiveProduct> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HiveProductAdapter &&
+      other is HiveProductModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

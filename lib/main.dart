@@ -25,8 +25,8 @@ import 'package:hive/hive.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(HiveProductAdapter());
-  await Hive.openBox<HiveProduct>("hive_dates");
+  Hive.registerAdapter(HiveProductModelAdapter());
+  await Hive.openBox<HiveProductModel>("hiveProduct");
   
 
   runApp(MultiBlocProvider(providers: [

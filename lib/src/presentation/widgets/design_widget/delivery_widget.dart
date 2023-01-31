@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -23,7 +24,7 @@ class DeliveryPage extends StatelessWidget {
             children: [
               ListView(children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.595,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 16, bottom: 12),
                   padding: const EdgeInsets.all(16),
@@ -66,7 +67,7 @@ class DeliveryPage extends StatelessWidget {
                             fillColor: const Color(0xffF5F5F5),
                             filled: true,
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffF5F5F5)),
+                              borderSide: BorderSide(color: Color(0xffFFCC00)),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -76,6 +77,7 @@ class DeliveryPage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Gap(8),
                       SizedBox(
                         height: 48,
                         child: ListView.separated(
@@ -84,21 +86,30 @@ class DeliveryPage extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: 3,
                           itemBuilder: (context, index) {
-                            return Container(
-                              width: 109,
+                            return SizedBox(
                               height: 48,
-                              margin: EdgeInsets.only(top: 4),
-                              padding: EdgeInsets.only(
-                                  left: 16, top: 12, bottom: 12),
-                              decoration: BoxDecoration(
-                                  color: Color(0xfff5f5f5),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Text(
-                                "Подъезд",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff858585)),
+                              width: MediaQuery.of(context).size.width * 0.29,
+                              child: TextField(
+                                style: const TextStyle(fontSize: 15),
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  hintText: "Квартира",
+                                  hintStyle: const TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xff858585),
+                                      fontWeight: FontWeight.w400),
+                                  fillColor: const Color(0xffF5F5F5),
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xffFFCC00)),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -112,11 +123,10 @@ class DeliveryPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 16),
                         height: 156,
-                        child: YandexMap(),
+                        // child: YandexMap(),
                       ),
-                      SizedBox(
-                        height: 4,
-                      ),
+                     
+                      
                       Text("Мои адреса"),
                       SizedBox(
                         height: 4,
@@ -136,7 +146,7 @@ class DeliveryPage extends StatelessWidget {
                             fillColor: const Color(0xffF5F5F5),
                             filled: true,
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xfff5f5f5)),
+                              borderSide: BorderSide(color: Color(0xffFFCC00)),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             enabledBorder: OutlineInputBorder(
