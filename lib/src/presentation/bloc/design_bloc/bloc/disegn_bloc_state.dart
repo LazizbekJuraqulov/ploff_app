@@ -1,6 +1,6 @@
 part of 'disegn_bloc_bloc.dart';
 
-abstract class DisegnBlocState extends Equatable {
+abstract class DisegnBlocState  {
   const DisegnBlocState();
 
   @override
@@ -10,18 +10,18 @@ abstract class DisegnBlocState extends Equatable {
 class DisegnBlocInitial extends DisegnBlocState {}
 
 class DisegnState extends DisegnBlocState {
-  List? isActiv;
-  int activIcon;
+  List<bool>? isactivList;
+  int activIconIndex;
   DisegnModel? branch;
   double latitude;
   double longitude;
   DisegnState(
-      {required this.isActiv, required this.activIcon, required this.branch,required this.latitude,required this.longitude});
-  DisegnState copyWith({List? isActiv, int? activIcon, DisegnModel? branch ,double? latitude,double? longitude}) {
+      {required this.isactivList, required this.activIconIndex, required this.branch,required this.latitude,required this.longitude});
+  DisegnState copyWith({List<bool>? isactivList, int? activIconIndex, DisegnModel? branch ,double? latitude,double? longitude}) {
     return DisegnState(
         branch: branch ?? this.branch,
-        isActiv: isActiv ?? this.isActiv,
-        activIcon: activIcon ?? this.activIcon,
+        isactivList: isactivList ?? this.isactivList,
+        activIconIndex: activIconIndex ?? this.activIconIndex,
         latitude: latitude?? this.latitude,
         longitude: longitude ?? this.longitude);
   }

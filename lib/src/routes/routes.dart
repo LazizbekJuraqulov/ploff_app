@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ploff_app/src/constants/test.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
@@ -67,7 +68,10 @@ class RoutesPage {
                       child:DesignPage(),
                     );
         });
-        
+          case "test":
+       return MaterialPageRoute(builder: (context) {
+          return PlacemarkMapObjectPage();
+        });
      
 
       default:

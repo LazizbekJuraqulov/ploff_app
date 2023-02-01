@@ -25,10 +25,12 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     super.initState();
   }
 
-  List list = ["Да", "Нет"];
-   late YandexMapController _controller;
-
-  @override
+  final List<MapObject> mapObjects = [];
+  final MapObjectId mapObjectId = MapObjectId('normal_icon_placemark');
+  final MapObjectId mapObjectWithDynamicIconId = MapObjectId('dynamic_icon_placemark');
+ 
+  late YandexMapController _controller;
+ @override
   Widget build(BuildContext context) {
     final disegnbloc = context.read<DisegnBlocBloc>();
     return BlocBuilder<DisegnBlocBloc, DisegnBlocState>(
@@ -69,7 +71,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                       unselectedLabelStyle: TextStyle(color: Color(0xffffffff)),
                       indicator: BoxDecoration(
                         borderRadius:
-                            BorderRadius.circular(6.96), // Creates border
+                            BorderRadius.circular(6.96),
                         color: Colors.white,
                       ),
                       tabs: const [
@@ -89,7 +91,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ),
           ),
           body: TabBarView(controller: tabController, children: [
-            DeliveryPage(disegnbloc: disegnbloc, list: list),
+            DeliveryPage(disegnbloc: disegnbloc,),
             Stack(
               children: [
                 ListView(children: [
@@ -102,24 +104,23 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Ближайший филиал",
-                          style: TextStyle(fontSize: 17),
-                        ),
+                        const Text("Ближайший филиал", style: textStyle),
                         Gap(16),
                         Container(
-                          height: 156,
+                          height: 500,
                           child: YandexMap(
-                              onMapCreated: (YandexMapController controller)async {
-                           _controller = controller;
-                          await  controller.moveCamera(
-                                CameraUpdate.newCameraPosition(CameraPosition(
-                                    target: Point(
-                                        latitude: state.latitude,
-                                        longitude: state.longitude))));
-                          }),
+                              mapObjects: mapObjects,
+                              onMapCreated:
+                                  (YandexMapController controller) async {
+                                _controller = controller;
+                                // await controller.moveCamera(
+                                //     CameraUpdate.newCameraPosition(
+                                //         CameraPosition(
+                                //             target: Point(
+                                //                 latitude: state.latitude,
+                                //                 longitude: state.longitude))));
+                              }),
                         ),
-                        //Gap(16),
                         SizedBox(
                           child: ListView.separated(
                               shrinkWrap: true,
@@ -127,22 +128,45 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () async {
-                                    disegnbloc
-                                        .add(LocaltionEvent(localtion: index));
-                                   await _controller.moveCamera(
-                                        CameraUpdate.newCameraPosition(
-                                            CameraPosition(
-                                                target: Point(
-                                                    latitude: state
-                                                        .branch!
-                                                        .branches[index]
-                                                        .location
-                                                        .lat,
-                                                    longitude: state
-                                                        .branch!
-                                                        .branches[index]
-                                                        .location
-                                                        .long))));
+                                     if (mapObjects
+                                        .any((el) => el.mapId == mapObjectId)) {
+                                      return;
+                                     }
+                                    //  await _controller.moveCamera(
+                                    //     CameraUpdate.newCameraPosition(
+                                    //         CameraPosition(
+                                    //             target: Point(
+                                    //                 latitude: state
+                                    //                     .branch!
+                                    //                     .branches[index]
+                                    //                     .location
+                                    //                     .lat,
+                                    //                 longitude: state
+                                    //                     .branch!
+                                    //                     .branches[index]
+                                    //                     .location
+                                    //                     .long))));
+                                
+
+                                    final mapObject = PlacemarkMapObject(
+                                        mapId: mapObjectId,
+                                        point: Point(
+                                          latitude: state.latitude,
+                                          longitude: state.longitude
+                                        ),
+                                        opacity: 0.7,
+                                        direction: 90,
+                                        isDraggable: true,
+                                        icon: PlacemarkIcon.single(
+                                            PlacemarkIconStyle(
+                                                image: BitmapDescriptor
+                                                    .fromAssetImage('assets/img/place.png'),
+                                                rotationType:
+                                                    RotationType.rotate)));
+                                  
+                                    mapObjects.add(mapObject);
+                                         disegnbloc
+                                         .add(LocaltionEvent(localtion: index));
                                   },
                                   child: ListTile(
                                     leading:
@@ -151,7 +175,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                         state.branch!.branches[index].name),
                                     subtitle: Text(
                                         state.branch!.branches[index].address),
-                                    trailing: state.isActiv![index]
+                                    trailing: state.isactivList![index]
                                         ? SvgPicture.asset(
                                             "assets/home_/activ_.svg")
                                         : SvgPicture.asset(
@@ -177,11 +201,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                       children: [
                         const Padding(
                           padding:
-                          EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                          child: Text(
-                            "Тип оплаты",
-                            style: textStyle
-                          ),
+                              EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                          child: Text("Тип оплаты", style: textStyle),
                         ),
                         ListView.separated(
                             shrinkWrap: true,
@@ -193,8 +214,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                 },
                                 child: ListTile(
                                   leading: Icon(Icons.access_alarm),
-                                  title: Text("Наличные"),
-                                  trailing: state.isActiv![index]
+                                  title: Text("Наличные",style: textOrder),
+                                  trailing: state.isactivList![index]
                                       ? SvgPicture.asset(
                                           "assets/home_/activ_.svg")
                                       : SvgPicture.asset(
@@ -209,7 +230,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                 check(),
+                  check(),
                   Gap(100)
                 ]),
                 Positioned(
@@ -230,22 +251,19 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8))),
                               onPressed: () {},
-                              child: Text(
-                                "Заказать",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff000000)),
-                              )),
+                              child: const Text("Заказать", style: buttontext)),
                         )
                       ],
                     )),
               ],
             ),
-          ]),
-        );
+          ]),);
       } else {
-        return Scaffold();
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
       }
     });
   }

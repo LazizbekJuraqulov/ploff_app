@@ -1,6 +1,6 @@
 part of 'disegn_bloc_bloc.dart';
 
-abstract class DisegnBlocEvent extends Equatable {
+abstract class DisegnBlocEvent  {
   const DisegnBlocEvent();
 
   @override
@@ -10,9 +10,11 @@ abstract class DisegnBlocEvent extends Equatable {
 class DisegnnEvent extends DisegnBlocEvent {}
 
 class ActivIconEvent extends DisegnBlocEvent {
-  int activIcon;
+  int activIconIndex;
+  List? activList;
+  
   ActivIconEvent(
-    this.activIcon,
+    this.activIconIndex,{this.activList}
   );
 }
 

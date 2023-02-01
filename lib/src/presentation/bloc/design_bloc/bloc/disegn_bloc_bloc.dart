@@ -12,16 +12,16 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
     on<DisegnnEvent>((event, emit) async {
       final branchs = await DesignApi.disegn();
       emit(DisegnState(
-          isActiv: List.generate(5, (index) => false),
-          activIcon: 0,
+          isactivList: List.generate(10, (index) => false),
+          activIconIndex: 0,
           branch: branchs,
           latitude: 41.311081,
           longitude: 69.240562));
     });
     on<ActivIconEvent>((event, emit) {
       final state = this.state as DisegnState;
-      state.isActiv![event.activIcon] = true;
-      emit(state.copyWith(isActiv: state.isActiv, activIcon: state.activIcon));
+      state.isactivList![event.activIconIndex] = true;
+      emit(state.copyWith(isactivList: state.isactivList, activIconIndex: event.activIconIndex));
     });
     on<LocaltionEvent>((event, emit)async {
       final state = this.state as DisegnState;
