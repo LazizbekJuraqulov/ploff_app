@@ -27,30 +27,35 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(HiveProductModelAdapter());
   await Hive.openBox<HiveProductModel>("hiveProduct");
-  
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => HomeBannerBloc()..add(HomeInit())),
   ], child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+ const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "design",
+      initialRoute: "navbar",
       onGenerateRoute: (settings) => RoutesPage.getRoters(settings),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-            backgroundColor:const Color(0xffFFCC00),
+            backgroundColor: const Color(0xffFFCC00),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           )),
           progressIndicatorTheme:
-             const ProgressIndicatorThemeData(color: Color(0xffFFCC00)),
+              const ProgressIndicatorThemeData(color: Color(0xffFFCC00)),
           scaffoldBackgroundColor: bacgroundColor,
           appBarTheme: const AppBarTheme(backgroundColor: Color(0xfffffffff))),
     );

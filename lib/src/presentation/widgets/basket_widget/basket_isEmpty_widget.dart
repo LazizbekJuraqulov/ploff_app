@@ -37,7 +37,6 @@ class BasketisEmpty extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      
                       navbarbloc.add(Transfer());
                     },
                     child: Padding(
@@ -50,7 +49,7 @@ class BasketisEmpty extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8))),
                           onPressed: () {
-                             navbarbloc.add(Transfer());
+                            navbarbloc.add(Transfer());
                           },
                           child: Text(
                             "+ Добавить продукт",

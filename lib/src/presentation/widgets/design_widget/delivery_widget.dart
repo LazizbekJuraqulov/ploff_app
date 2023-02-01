@@ -1,11 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:ploff_app/src/constants/textStyle.dart';
+import 'package:ploff_app/src/data/datasourse/local/hive_box.dart';
+import 'package:ploff_app/src/data/datasourse/local/hive_class.dart';
+import 'package:ploff_app/src/data/dto/hive_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
+import 'package:ploff_app/src/presentation/widgets/design_widget/check_widget.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
-class DeliveryPage extends StatelessWidget {
+class DeliveryPage extends StatefulWidget {
   const DeliveryPage({
     Key? key,
     required this.disegnbloc,
@@ -16,6 +24,18 @@ class DeliveryPage extends StatelessWidget {
   final List list;
 
   @override
+  State<DeliveryPage> createState() => _DeliveryPageState();
+}
+
+class _DeliveryPageState extends State<DeliveryPage> {
+  @override
+  final List<MapObject> mapObjects = [];
+  YandexMapController? _mapController;
+  final MapObjectId mapObjectId = MapObjectId('normal_icon_placemark');
+  final MapObjectId mapObjectWithDynamicIconId =
+      MapObjectId('dynamic_icon_placemark');
+  final MapObjectId mapObjectWithCompositeIconId =
+      MapObjectId('composite_icon_placemark');
   Widget build(BuildContext context) {
     return BlocBuilder<DisegnBlocBloc, DisegnBlocState>(
       builder: (context, state) {
@@ -24,7 +44,7 @@ class DeliveryPage extends StatelessWidget {
             children: [
               ListView(children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.63,
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 16, bottom: 12),
                   padding: const EdgeInsets.all(16),
@@ -52,6 +72,7 @@ class DeliveryPage extends StatelessWidget {
                               color: Color(0xff5F5F5F)),
                         ),
                       ),
+                      Gap(4),
                       SizedBox(
                         height: 48,
                         width: MediaQuery.of(context).size.width,
@@ -123,10 +144,17 @@ class DeliveryPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 16),
                         height: 156,
-                        // child: YandexMap(),
+                        child: YandexMap(
+                          onMapCreated: (controller) {
+                            controller.moveCamera(
+                                CameraUpdate.newCameraPosition(CameraPosition(
+                                    target: Point(
+                                        latitude: 41.311081,
+                                        longitude: 69.240562))));
+                          },
+                        ),
                       ),
-                     
-                      
+                      Gap(16),
                       Text("Мои адреса"),
                       SizedBox(
                         height: 4,
@@ -170,10 +198,7 @@ class DeliveryPage extends StatelessWidget {
                         padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
                         child: Text(
                           "Хотели бы что бы вам позвонил курьер?",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff2B2A28)),
+                          style: textStyle
                         ),
                       ),
                       ListView.separated(
@@ -182,7 +207,7 @@ class DeliveryPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
-                                disegnbloc.add(ActivIconEvent(index));
+                                widget.disegnbloc.add(ActivIconEvent(index));
                               },
                               child: Row(
                                 children: [
@@ -199,7 +224,7 @@ class DeliveryPage extends StatelessWidget {
                                     padding: EdgeInsets.only(
                                         left: 12, bottom: 12, top: 12),
                                     child: Text(
-                                      list[index],
+                                      widget.list[index],
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Color(0xff000000)),
@@ -226,13 +251,10 @@ class DeliveryPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                          EdgeInsets.only(left: 16, top: 16, bottom: 8),
                         child: Text(
                           "Время доставка",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff2B2A28)),
+                          style: textStyle,
                         ),
                       ),
                       ListView.separated(
@@ -241,7 +263,7 @@ class DeliveryPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
-                                disegnbloc.add(ActivIconEvent(index));
+                                widget.disegnbloc.add(ActivIconEvent(index));
                               },
                               child: ListTile(
                                 leading: Icon(Icons.access_alarm),
@@ -271,15 +293,12 @@ class DeliveryPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
+                     const Padding(
                         padding:
-                            const EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                            EdgeInsets.only(left: 16, top: 16, bottom: 8),
                         child: Text(
                           "Выберите время",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff2B2A28)),
+                          style: textStyle
                         ),
                       ),
                       Padding(
@@ -316,15 +335,12 @@ class DeliveryPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
+                     const Padding(
                         padding:
-                            const EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                             EdgeInsets.only(left: 16, top: 16, bottom: 8),
                         child: Text(
                           "Тип оплаты",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff2B2A28)),
+                          style: textStyle
                         ),
                       ),
                       ListView.separated(
@@ -333,7 +349,7 @@ class DeliveryPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
-                                disegnbloc.add(ActivIconEvent(index));
+                                widget.disegnbloc.add(ActivIconEvent(index));
                               },
                               child: ListTile(
                                 leading: Icon(Icons.access_alarm),
@@ -353,37 +369,7 @@ class DeliveryPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 12),
-                  decoration: BoxDecoration(
-                      color: Color(0xffffffff),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                        child: Text(
-                          "Чек",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff2B2A28)),
-                        ),
-                      ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                                title: Text("Свадебный плов х2"),
-                                trailing: Text("10 000 сум"));
-                          },
-                          itemCount: 3),
-                    ],
-                  ),
-                ),
+                check(),
                 SizedBox(
                   height: 100,
                 ),

@@ -4,7 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:ploff_app/src/constants/textStyle.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
+import 'package:ploff_app/src/presentation/widgets/design_widget/check_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/delivery_widget.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -24,6 +26,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   }
 
   List list = ["Да", "Нет"];
+   late YandexMapController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +109,15 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                         Gap(16),
                         Container(
                           height: 156,
-                          //child: YandexMap(),
+                          child: YandexMap(
+                              onMapCreated: (YandexMapController controller)async {
+                           _controller = controller;
+                          await  controller.moveCamera(
+                                CameraUpdate.newCameraPosition(CameraPosition(
+                                    target: Point(
+                                        latitude: state.latitude,
+                                        longitude: state.longitude))));
+                          }),
                         ),
                         //Gap(16),
                         SizedBox(
@@ -114,14 +125,38 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                return ListTile(
-                                  leading: Image.asset("assets/img/filial.png"),
-                                  title: Text(state.branch!.branches[index].address),
-                                  subtitle: Text(state.branch!.branches[index].address),
-                                  trailing: state.isActiv![index]
-                                      ? SvgPicture.asset("assets/home_/activ_.svg")
-                                      : SvgPicture.asset(
-                                          "assets/home_/not_activ_.svg"),
+                                return InkWell(
+                                  onTap: () async {
+                                    disegnbloc
+                                        .add(LocaltionEvent(localtion: index));
+                                   await _controller.moveCamera(
+                                        CameraUpdate.newCameraPosition(
+                                            CameraPosition(
+                                                target: Point(
+                                                    latitude: state
+                                                        .branch!
+                                                        .branches[index]
+                                                        .location
+                                                        .lat,
+                                                    longitude: state
+                                                        .branch!
+                                                        .branches[index]
+                                                        .location
+                                                        .long))));
+                                  },
+                                  child: ListTile(
+                                    leading:
+                                        Image.asset("assets/img/filial.png"),
+                                    title: Text(
+                                        state.branch!.branches[index].name),
+                                    subtitle: Text(
+                                        state.branch!.branches[index].address),
+                                    trailing: state.isActiv![index]
+                                        ? SvgPicture.asset(
+                                            "assets/home_/activ_.svg")
+                                        : SvgPicture.asset(
+                                            "assets/home_/not_activ_.svg"),
+                                  ),
                                 );
                               },
                               separatorBuilder: (context, index) {
@@ -145,10 +180,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                           EdgeInsets.only(left: 16, top: 16, bottom: 8),
                           child: Text(
                             "Тип оплаты",
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff2B2A28)),
+                            style: textStyle
                           ),
                         ),
                         ListView.separated(
@@ -177,67 +209,37 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 12),
-                    decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                       const Padding(
-                          padding:
-                             EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                          child: Text(
-                            "Чек",
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff2B2A28)),
-                          ),
-                        ),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            physics:const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                  title: Text("Свадебный плов х2"),
-                                  trailing: Text("10 000 сум"));
-                            },
-                            itemCount: 3),
-                      ],
-                    ),
-                  ),
+                 check(),
                   Gap(100)
                 ]),
-                 Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 12),
-                        color: Color(0xffffffff),
-                        padding: const EdgeInsets.only(
-                            left: 16, right: 16, bottom: 16, top: 16),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                minimumSize:
-                                    Size(MediaQuery.of(context).size.width, 52),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8))),
-                            onPressed: () {},
-                            child: Text(
-                              "Заказать",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff000000)),
-                            )),
-                      )
-                    ],
-                  )),
+                Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 12),
+                          color: Color(0xffffffff),
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, bottom: 16, top: 16),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(
+                                      MediaQuery.of(context).size.width, 52),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8))),
+                              onPressed: () {},
+                              child: Text(
+                                "Заказать",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xff000000)),
+                              )),
+                        )
+                      ],
+                    )),
               ],
             ),
           ]),
@@ -248,5 +250,3 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     });
   }
 }
-
-

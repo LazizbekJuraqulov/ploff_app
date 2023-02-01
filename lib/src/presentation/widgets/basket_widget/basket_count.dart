@@ -30,26 +30,25 @@ Future<dynamic> alertwidget(BuildContext context, List<HiveProductModel> data, i
                                                           Padding(
                                                             padding: EdgeInsets
                                                                 .only(
-                                                                    left: 16,
-                                                                    right:
-                                                                        16),
-                                                            child: Center(
-                                                              child: Text(
-                                                                "Вы уверены, что хотите очистить корзину?",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                    color: Color(
-                                                                        0xff858585),
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400),
-                                                              ),
+                                                                    left: 20,
+                                                                    right: 20
+                                                                    ),
+                                                            child: Text(
+                                                              "Вы уверены, что хотите очистить корзину?",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      15,
+                                                                  color: Color(
+                                                                      0xff858585),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400),
                                                             ),
                                                           )
                                                         ],
                                                       ),
                                                       content: Container(
+                                                        padding: EdgeInsets.only(left: 8,right: 8),
                                                         child: Row(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment

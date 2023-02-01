@@ -9,18 +9,25 @@ part 'disegn_bloc_state.dart';
 class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
   DisegnBlocBloc() : super(DisegnBlocInitial()) {
     on<DisegnBlocEvent>((event, emit) {});
-    on<DisegnnEvent>((event, emit) async{
+    on<DisegnnEvent>((event, emit) async {
       final branchs = await DesignApi.disegn();
       emit(DisegnState(
-        isActiv: List.generate(5, (index) => false),
-        activIcon: 0,
-        branch: branchs
-      ));
+          isActiv: List.generate(5, (index) => false),
+          activIcon: 0,
+          branch: branchs,
+          latitude: 41.311081,
+          longitude: 69.240562));
     });
     on<ActivIconEvent>((event, emit) {
       final state = this.state as DisegnState;
       state.isActiv![event.activIcon] = true;
       emit(state.copyWith(isActiv: state.isActiv, activIcon: state.activIcon));
+    });
+    on<LocaltionEvent>((event, emit)async {
+      final state = this.state as DisegnState;
+      //final branchs = await DesignApi.disegn();
+
+      emit(state.copyWith(latitude: state.branch!.branches[event.localtion].location.lat,longitude: state.branch!.branches[event.localtion].location.long));
     });
   }
 }

@@ -15,3 +15,8 @@ class ActivIconEvent extends DisegnBlocEvent {
     this.activIcon,
   );
 }
+
+class LocaltionEvent extends DisegnBlocEvent {
+  int localtion;
+  LocaltionEvent({required this.localtion});
+}
