@@ -20,19 +20,36 @@ class DesignPage extends StatefulWidget {
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   TabController? tabController;
+
+  late int activIndex;
+  List<MapObject> mapObjects = [];
+  late PlacemarkMapObject mapObject;
+  final MapObjectId mapObjectId = MapObjectId('normal_icon_placemark');
+  late YandexMapController _controller;
   @override
   void initState() {
     tabController = TabController(vsync: this, length: 2);
+    mapObjects = [
+      mapObject = PlacemarkMapObject(
+        mapId: mapObjectId,
+        point: Point(latitude: 41.311081, longitude: 69.240562),
+        zIndex: 20,
+        opacity: 1,
+        isDraggable: false,
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+            image: BitmapDescriptor.fromAssetImage(
+              'assets/img/metka.png',
+            ),
+            rotationType: RotationType.noRotation,
+          ),
+        ),
+      )
+    ];
+
     super.initState();
   }
 
-  late int activIndex;
-  final List<MapObject> mapObjects = [];
-  final MapObjectId mapObjectId = MapObjectId('normal_icon_placemark');
-  final MapObjectId mapObjectWithDynamicIconId =
-      MapObjectId('dynamic_icon_placemark');
-
-  late YandexMapController _controller;
   @override
   Widget build(BuildContext context) {
     final disegnbloc = context.read<DisegnBlocBloc>();
@@ -117,69 +134,80 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                               onMapCreated:
                                   (YandexMapController controller) async {
                                 _controller = controller;
-                                // await controller.moveCamera(
-                                //     CameraUpdate.newCameraPosition(
-                                //         CameraPosition(
-                                //             target: Point(
-                                //                 latitude: state.latitude,
-                                //                 longitude: state.longitude))));
+                                await controller.moveCamera(
+                                    CameraUpdate.newCameraPosition(
+                                        CameraPosition(
+                                            target: Point(
+                                                latitude: state.latitude,
+                                                longitude: state.longitude))));
                               }),
                         ),
                         SizedBox(
                           child: ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context,activIndex ) {
+                              itemBuilder: (context, activIndex) {
                                 return InkWell(
                                   onTap: () async {
-                                    disegnbloc.add(OfficeEvent(activIndex));
-                                    if (mapObjects
+                                    if (!mapObjects
                                         .any((el) => el.mapId == mapObjectId)) {
                                       return;
                                     }
-                                    //  await _controller.moveCamera(
-                                    //     CameraUpdate.newCameraPosition(
-                                    //         CameraPosition(
-                                    //             target: Point(
-                                    //                 latitude: state
-                                    //                     .branch!
-                                    //                     .branches[activIndex]
-                                    //                     .location
-                                    //                     .lat,
-                                    //                 longitude: state
-                                    //                     .branch!
-                                    //                     .branches[activIndex]
-                                    //                     .location
-                                    //                     .long))));
 
-                                    final mapObject = PlacemarkMapObject(
-                                        mapId: mapObjectId,
-                                        point: Point(
-                                            latitude: state.latitude,
-                                            longitude: state.longitude),
-                                        opacity: 0.7,
-                                        direction: 90,
-                                        isDraggable: true,
-                                        icon: PlacemarkIcon.single(
-                                            PlacemarkIconStyle(
-                                                image: BitmapDescriptor
-                                                    .fromAssetImage(
-                                                        'assets/img/place.png'),
-                                                rotationType:
-                                                    RotationType.rotate)));
+                                    mapObjects[mapObjects.indexOf(mapObject)] =
+                                        mapObject.copyWith(
+                                            point: Point(
+                                                latitude:
+                                                    mapObject.point.latitude,
+                                                longitude:
+                                                    mapObject.point.longitude));
+                                   
 
+                                    mapObject = PlacemarkMapObject(
+                                      mapId: mapObjectId,
+                                      point: Point(
+                                          latitude: state.latitude,
+                                          longitude: state.longitude),
+                                      zIndex: 20,
+                                      opacity: 1,
+                                      isDraggable: false,
+                                      icon: PlacemarkIcon.single(
+                                        PlacemarkIconStyle(
+                                          image:
+                                              BitmapDescriptor.fromAssetImage(
+                                            'assets/img/metka.png',
+                                          ),
+                                          rotationType: RotationType.noRotation,
+                                        ),
+                                      ),
+                                    );
+                                     await _controller.moveCamera(
+                                        CameraUpdate.newCameraPosition(
+                                            CameraPosition(
+                                                target: Point(
+                                                    latitude: state
+                                                        .branch!
+                                                        .branches[activIndex]
+                                                        .location
+                                                        .lat,
+                                                    longitude: state
+                                                        .branch!
+                                                        .branches[activIndex]
+                                                        .location
+                                                        .long))));
+
+                                    disegnbloc.add(
+                                        LocaltionEvent(localtion: activIndex));
                                     mapObjects.add(mapObject);
-                                    disegnbloc
-                                        .add(LocaltionEvent(localtion: activIndex));
                                   },
                                   child: ListTile(
                                     leading:
                                         Image.asset("assets/img/filial.png"),
-                                    title: Text(
-                                        state.branch!.branches[activIndex].name),
-                                    subtitle: Text(
-                                        state.branch!.branches[activIndex].address),
-                                    trailing: state.isOffList![activIndex]
+                                    title: Text(state
+                                        .branch!.branches[activIndex].name),
+                                    subtitle: Text(state
+                                        .branch!.branches[activIndex].address),
+                                    trailing: state.isLocList![activIndex]
                                         ? SvgPicture.asset(
                                             "assets/home_/activ_.svg")
                                         : SvgPicture.asset(

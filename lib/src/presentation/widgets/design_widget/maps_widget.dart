@@ -2,11 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
-class MapsWidget extends StatelessWidget {
+class MapsWidget extends StatefulWidget {
   const MapsWidget({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<MapsWidget> createState() => _MapsWidgetState();
+}
+
+class _MapsWidgetState extends State<MapsWidget> {
+  List<MapObject> mapObjects = [];
+  late PlacemarkMapObject mapObject;
+  final MapObjectId mapObjectId = MapObjectId('normal_icon_placemark');
+  @override
+  void initState() {
+     mapObjects = [
+      mapObject = PlacemarkMapObject(
+        mapId: mapObjectId,
+        point: Point(latitude: 41.311081, longitude: 69.240562),
+        zIndex: 20,
+        opacity: 1,
+        isDraggable: false,
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+            image: BitmapDescriptor.fromAssetImage(
+              'assets/img/metka.png',
+            ),
+            rotationType: RotationType.noRotation,
+          ),
+        ),
+      )
+    ];
+    
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,6 +141,7 @@ class MapsWidget extends StatelessWidget {
             margin: EdgeInsets.only(top: 16),
             height: 156,
             child: YandexMap(
+              mapObjects: mapObjects,
               onMapCreated: (controller) {
                 controller.moveCamera(
                     CameraUpdate.newCameraPosition(CameraPosition(

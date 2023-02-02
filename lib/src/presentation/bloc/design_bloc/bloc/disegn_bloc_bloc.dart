@@ -15,6 +15,7 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
           isactivList: List.generate(10, (index) => false),
            isOffList: List.generate(10, (index) => false),
             isPayList: List.generate(10, (index) => false),
+            isLocList: List.generate(10, (index) => false),
 
           activIconIndex: 0,
           branch: branchs,
@@ -36,7 +37,7 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
     });
     on<LocaltionEvent>((event, emit) async {
       final state = this.state as DisegnState;
-         for (var i = 0; i < state.isactivList!.length; i++) {
+         for (var i = 0; i < state.isLocList!.length; i++) {
         if (i == event.localtion) {
           state.isactivList![i] = true;
         } else {
@@ -47,7 +48,7 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
       emit(state.copyWith(
           latitude: state.branch!.branches[event.localtion].location.lat,
           longitude: state.branch!.branches[event.localtion].location.long,
-          isactivList: state.isactivList,
+          isactivList: state.isLocList,
           activIconIndex: event.localtion));
     });
      on<PaymentEvent>((event, emit) {
