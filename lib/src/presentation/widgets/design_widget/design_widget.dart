@@ -128,18 +128,19 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                         const Text("Ближайший филиал", style: textStyle),
                         Gap(16),
                         Container(
-                          height: 500,
+                          height: 156,
                           child: YandexMap(
                               mapObjects: mapObjects,
                               onMapCreated:
                                   (YandexMapController controller) async {
                                 _controller = controller;
-                                await controller.moveCamera(
-                                    CameraUpdate.newCameraPosition(
-                                        CameraPosition(
-                                            target: Point(
-                                                latitude: state.latitude,
-                                                longitude: state.longitude))));
+                                 controller.moveCamera(
+                                  animation: MapAnimation(duration: 2.0,type: MapAnimationType.smooth),
+                                  CameraUpdate.newCameraPosition(CameraPosition(
+                                      target: Point(
+                                          latitude: state.latitude,
+                                          longitude: state.longitude)))
+                                );
                               }),
                         ),
                         SizedBox(
@@ -153,7 +154,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                         .any((el) => el.mapId == mapObjectId)) {
                                       return;
                                     }
-
                                     mapObjects[mapObjects.indexOf(mapObject)] =
                                         mapObject.copyWith(
                                             point: Point(
@@ -161,7 +161,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                                     mapObject.point.latitude,
                                                 longitude:
                                                     mapObject.point.longitude));
-                                   
 
                                     mapObject = PlacemarkMapObject(
                                       mapId: mapObjectId,
@@ -181,7 +180,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                         ),
                                       ),
                                     );
-                                     await _controller.moveCamera(
+                                    await _controller.moveCamera(
                                         CameraUpdate.newCameraPosition(
                                             CameraPosition(
                                                 target: Point(
@@ -195,9 +194,9 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                                         .branches[activIndex]
                                                         .location
                                                         .long))));
-
                                     disegnbloc.add(
-                                        LocaltionEvent(localtion: activIndex));
+                                      LocaltionEvent(localtion: activIndex),
+                                    );
                                     mapObjects.add(mapObject);
                                   },
                                   child: ListTile(

@@ -142,8 +142,9 @@ class _MapsWidgetState extends State<MapsWidget> {
             height: 156,
             child: YandexMap(
               mapObjects: mapObjects,
-              onMapCreated: (controller) {
+              onMapCreated: (controller)async {
                 controller.moveCamera(
+                   animation:MapAnimation(duration: 2.0,type: MapAnimationType.smooth),
                     CameraUpdate.newCameraPosition(CameraPosition(
                         target: Point(
                             latitude: 41.311081,

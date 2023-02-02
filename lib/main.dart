@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "design",
+      initialRoute: "navbar",
       onGenerateRoute: (settings) => RoutesPage.getRoters(settings),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
