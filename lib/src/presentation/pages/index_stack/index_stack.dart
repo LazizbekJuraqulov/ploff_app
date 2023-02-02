@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ploff_app/src/data/datasourse/local/hive_class.dart';
 import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/my_orders/bloc/my_orders_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
@@ -43,7 +44,9 @@ class _NavBarState extends State<NavBar> {
                 create: (context) => OrderproductBloc()..add(InitilEvent()),
                 child: BasketPage(),
               ),
-              MyOrdersPage(),
+              BlocProvider(
+                      create: (context) =>MyOrdersBloc()..add(OrdersEvent()),
+                      child: MyOrdersPage(),),
               BlocProvider(
                 create: ((context) =>
                     RegisterBloc()..add(RegisterInitialEvent())),

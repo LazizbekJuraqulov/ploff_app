@@ -7,9 +7,7 @@ Future<dynamic> alertwidget(BuildContext context, List<HiveProductModel> data, i
                                                   context: context,
                                                   builder: (context) { 
                                                     return AlertDialog(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      title: Column(
+                                                       title: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .center,

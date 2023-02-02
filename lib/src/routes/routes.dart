@@ -3,13 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/constants/test.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/my_orders/bloc/my_orders_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/splashscreen/splash_screen_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
+import 'package:ploff_app/src/presentation/pages/index_stack/index_stack.dart';
 import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
-import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
 import 'package:ploff_app/src/presentation/pages/splash/splash_screen.dart';
@@ -47,10 +48,13 @@ class RoutesPage {
        return MaterialPageRoute(builder: (context) {
           return BasketPage();
         });
-        
+       
         case "order":
-       return MaterialPageRoute(builder: (context) {
-          return MyOrdersPage();
+        return MaterialPageRoute(builder: (context) {
+          return BlocProvider(
+                      create: (context) =>MyOrdersBloc()..add(OrdersEvent()),
+                      child: MyOrdersPage(),
+                    );;
         });
         
        case "profil":

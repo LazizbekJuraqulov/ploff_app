@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ploff_app/src/data/datasourse/remote/register_confrim.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
-import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/notficion_register.widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';

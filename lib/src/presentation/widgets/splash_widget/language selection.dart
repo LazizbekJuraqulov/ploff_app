@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
-import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';
 

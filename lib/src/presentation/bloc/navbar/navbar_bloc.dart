@@ -7,7 +7,6 @@ import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
 import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
-import 'package:ploff_app/src/presentation/pages/nav_bar/navbar_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
 import 'package:ploff_app/src/presentation/widgets/register_widget/widget.dart';

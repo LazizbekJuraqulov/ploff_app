@@ -150,6 +150,15 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                               itemBuilder: (context, activIndex) {
                                 return InkWell(
                                   onTap: () async {
+                                    await _controller.moveCamera(
+                                        CameraUpdate.newCameraPosition(
+                                            CameraPosition(
+                                                target: Point(
+                                                    latitude: state
+                                                        .latitude,
+                                                        
+                                                    longitude: state.longitude
+                                                        ))));
                                     if (!mapObjects
                                         .any((el) => el.mapId == mapObjectId)) {
                                       return;
@@ -162,7 +171,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                                 longitude:
                                                     mapObject.point.longitude));
 
-                                    mapObject = PlacemarkMapObject(
+                                    final  mapObjectw = PlacemarkMapObject(
                                       mapId: mapObjectId,
                                       point: Point(
                                           latitude: state.latitude,
@@ -180,24 +189,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                         ),
                                       ),
                                     );
-                                    await _controller.moveCamera(
-                                        CameraUpdate.newCameraPosition(
-                                            CameraPosition(
-                                                target: Point(
-                                                    latitude: state
-                                                        .branch!
-                                                        .branches[activIndex]
-                                                        .location
-                                                        .lat,
-                                                    longitude: state
-                                                        .branch!
-                                                        .branches[activIndex]
-                                                        .location
-                                                        .long))));
+                                    
                                     disegnbloc.add(
                                       LocaltionEvent(localtion: activIndex),
                                     );
-                                    mapObjects.add(mapObject);
+                                    mapObjects.add(mapObjectw);
                                   },
                                   child: ListTile(
                                     leading:
