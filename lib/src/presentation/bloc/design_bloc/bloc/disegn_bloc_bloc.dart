@@ -13,6 +13,9 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
       final branchs = await DesignApi.disegn();
       emit(DisegnState(
           isactivList: List.generate(10, (index) => false),
+           isOffList: List.generate(10, (index) => false),
+            isPayList: List.generate(10, (index) => false),
+
           activIconIndex: 0,
           branch: branchs,
           latitude: 41.311081,
@@ -20,14 +23,59 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
     });
     on<ActivIconEvent>((event, emit) {
       final state = this.state as DisegnState;
-      state.isactivList![event.activIconIndex] = true;
-      emit(state.copyWith(isactivList: state.isactivList, activIconIndex: event.activIconIndex));
+      for (var i = 0; i < state.isactivList!.length; i++) {
+        if (i == event.activIconIndex) {
+          state.isactivList![i] = true;
+        } else {
+          state.isactivList![i] = false;
+        }
+      }
+      emit(state.copyWith(
+          isactivList: state.isactivList,
+          activIconIndex: event.activIconIndex));
     });
-    on<LocaltionEvent>((event, emit)async {
+    on<LocaltionEvent>((event, emit) async {
       final state = this.state as DisegnState;
-      //final branchs = await DesignApi.disegn();
+         for (var i = 0; i < state.isactivList!.length; i++) {
+        if (i == event.localtion) {
+          state.isactivList![i] = true;
+        } else {
+          state.isactivList![i] = false;
+        }
+      }
 
-      emit(state.copyWith(latitude: state.branch!.branches[event.localtion].location.lat,longitude: state.branch!.branches[event.localtion].location.long));
+      emit(state.copyWith(
+          latitude: state.branch!.branches[event.localtion].location.lat,
+          longitude: state.branch!.branches[event.localtion].location.long,
+          isactivList: state.isactivList,
+          activIconIndex: event.localtion));
+    });
+     on<PaymentEvent>((event, emit) {
+      final state = this.state as DisegnState;
+      for (var i = 0; i < state.isPayList!.length; i++) {
+        if (i == event.indexPay) {
+          state.isPayList![i] = true;
+        } else {
+          state.isPayList![i] = false;
+        }
+      }
+      emit(state.copyWith(
+          isPayList: state.isPayList,
+          activIconIndex: event.indexPay));
+    });
+     on<OfficeEvent>((event, emit) {
+      final state = this.state as DisegnState;
+      for (var i = 0; i < state.isOffList!.length; i++) {
+        if (i == event.indexOff) {
+          state.isOffList![i] = true;
+        } else {
+          state.isOffList![i] = false;
+        }
+      }
+      emit(state.copyWith(
+          isOffList: state.isOffList,
+          activIconIndex: event.indexOff));
     });
   }
 }
+

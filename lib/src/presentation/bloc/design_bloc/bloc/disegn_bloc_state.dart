@@ -11,18 +11,23 @@ class DisegnBlocInitial extends DisegnBlocState {}
 
 class DisegnState extends DisegnBlocState {
   List<bool>? isactivList;
+   List<bool>? isOffList;
+    List<bool>? isPayList;
   int activIconIndex;
   DisegnModel? branch;
   double latitude;
   double longitude;
   DisegnState(
-      {required this.isactivList, required this.activIconIndex, required this.branch,required this.latitude,required this.longitude});
-  DisegnState copyWith({List<bool>? isactivList, int? activIconIndex, DisegnModel? branch ,double? latitude,double? longitude}) {
+      {required this.isactivList, required this.activIconIndex, required this.branch,required this.latitude,required this.longitude,required this.isOffList,required this.isPayList});
+  DisegnState copyWith({List<bool>? isactivList, int? activIconIndex, DisegnModel? branch ,double? latitude,double? longitude,  List<bool>? isOffList,  List<bool>? isPayList }) {
     return DisegnState(
         branch: branch ?? this.branch,
         isactivList: isactivList ?? this.isactivList,
         activIconIndex: activIconIndex ?? this.activIconIndex,
         latitude: latitude?? this.latitude,
-        longitude: longitude ?? this.longitude);
+        longitude: longitude ?? this.longitude,
+        isOffList: isOffList ?? this.isOffList,
+        isPayList: isPayList ?? this.isPayList
+        );
   }
 }

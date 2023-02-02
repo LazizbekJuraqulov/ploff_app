@@ -8,6 +8,7 @@ import 'package:ploff_app/src/constants/textStyle.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/check_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/delivery_widget.dart';
+import 'package:ploff_app/src/presentation/widgets/design_widget/payment_widget.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class DesignPage extends StatefulWidget {
@@ -25,12 +26,14 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     super.initState();
   }
 
+  late int activIndex;
   final List<MapObject> mapObjects = [];
   final MapObjectId mapObjectId = MapObjectId('normal_icon_placemark');
-  final MapObjectId mapObjectWithDynamicIconId = MapObjectId('dynamic_icon_placemark');
- 
+  final MapObjectId mapObjectWithDynamicIconId =
+      MapObjectId('dynamic_icon_placemark');
+
   late YandexMapController _controller;
- @override
+  @override
   Widget build(BuildContext context) {
     final disegnbloc = context.read<DisegnBlocBloc>();
     return BlocBuilder<DisegnBlocBloc, DisegnBlocState>(
@@ -70,8 +73,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                       controller: tabController,
                       unselectedLabelStyle: TextStyle(color: Color(0xffffffff)),
                       indicator: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(6.96),
+                        borderRadius: BorderRadius.circular(6.96),
                         color: Colors.white,
                       ),
                       tabs: const [
@@ -91,7 +93,9 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ),
           ),
           body: TabBarView(controller: tabController, children: [
-            DeliveryPage(disegnbloc: disegnbloc,),
+            DeliveryPage(
+              disegnbloc: disegnbloc,
+            ),
             Stack(
               children: [
                 ListView(children: [
@@ -125,57 +129,57 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                           child: ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context,activIndex ) {
                                 return InkWell(
                                   onTap: () async {
-                                     if (mapObjects
+                                    disegnbloc.add(OfficeEvent(activIndex));
+                                    if (mapObjects
                                         .any((el) => el.mapId == mapObjectId)) {
                                       return;
-                                     }
+                                    }
                                     //  await _controller.moveCamera(
                                     //     CameraUpdate.newCameraPosition(
                                     //         CameraPosition(
                                     //             target: Point(
                                     //                 latitude: state
                                     //                     .branch!
-                                    //                     .branches[index]
+                                    //                     .branches[activIndex]
                                     //                     .location
                                     //                     .lat,
                                     //                 longitude: state
                                     //                     .branch!
-                                    //                     .branches[index]
+                                    //                     .branches[activIndex]
                                     //                     .location
                                     //                     .long))));
-                                
 
                                     final mapObject = PlacemarkMapObject(
                                         mapId: mapObjectId,
                                         point: Point(
-                                          latitude: state.latitude,
-                                          longitude: state.longitude
-                                        ),
+                                            latitude: state.latitude,
+                                            longitude: state.longitude),
                                         opacity: 0.7,
                                         direction: 90,
                                         isDraggable: true,
                                         icon: PlacemarkIcon.single(
                                             PlacemarkIconStyle(
                                                 image: BitmapDescriptor
-                                                    .fromAssetImage('assets/img/place.png'),
+                                                    .fromAssetImage(
+                                                        'assets/img/place.png'),
                                                 rotationType:
                                                     RotationType.rotate)));
-                                  
+
                                     mapObjects.add(mapObject);
-                                         disegnbloc
-                                         .add(LocaltionEvent(localtion: index));
+                                    disegnbloc
+                                        .add(LocaltionEvent(localtion: activIndex));
                                   },
                                   child: ListTile(
                                     leading:
                                         Image.asset("assets/img/filial.png"),
                                     title: Text(
-                                        state.branch!.branches[index].name),
+                                        state.branch!.branches[activIndex].name),
                                     subtitle: Text(
-                                        state.branch!.branches[index].address),
-                                    trailing: state.isactivList![index]
+                                        state.branch!.branches[activIndex].address),
+                                    trailing: state.isOffList![activIndex]
                                         ? SvgPicture.asset(
                                             "assets/home_/activ_.svg")
                                         : SvgPicture.asset(
@@ -191,44 +195,9 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 12),
-                    decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                          child: Text("Тип оплаты", style: textStyle),
-                        ),
-                        ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  disegnbloc.add(ActivIconEvent(index));
-                                },
-                                child: ListTile(
-                                  leading: Icon(Icons.access_alarm),
-                                  title: Text("Наличные",style: textOrder),
-                                  trailing: state.isactivList![index]
-                                      ? SvgPicture.asset(
-                                          "assets/home_/activ_.svg")
-                                      : SvgPicture.asset(
-                                          "assets/home_/not_activ_.svg"),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return Divider();
-                            },
-                            itemCount: 3),
-                      ],
-                    ),
+                  PaymentWidget(
+                    disegnbloc: disegnbloc,
+                    state: state,
                   ),
                   check(),
                   Gap(100)
@@ -257,7 +226,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                     )),
               ],
             ),
-          ]),);
+          ]),
+        );
       } else {
         return const Scaffold(
           body: Center(

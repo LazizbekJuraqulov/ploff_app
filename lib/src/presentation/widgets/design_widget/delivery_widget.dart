@@ -12,17 +12,16 @@ import 'package:ploff_app/src/data/dto/hive_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/check_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/maps_widget.dart';
+import 'package:ploff_app/src/presentation/widgets/design_widget/payment_widget.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class DeliveryPage extends StatefulWidget {
   const DeliveryPage({
     Key? key,
     required this.disegnbloc,
-    
   }) : super(key: key);
 
   final DisegnBlocBloc disegnbloc;
-
 
   @override
   State<DeliveryPage> createState() => _DeliveryPageState();
@@ -30,7 +29,9 @@ class DeliveryPage extends StatefulWidget {
 
 class _DeliveryPageState extends State<DeliveryPage> {
   @override
-   List list = ["Да", "Нет"];
+  List list = ["Да", "Нет"];
+  List time = ["Срочная доставка", "Доставка по расписанию"];
+  List timeicons = ["assets/home_/cars.png", "assets/home_/time.png"];
   final List<MapObject> mapObjects = [];
   YandexMapController? _mapController;
   final MapObjectId mapObjectId = MapObjectId('normal_icon_placemark');
@@ -55,10 +56,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
                     children: [
                       const Padding(
                         padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                        child: Text(
-                          "Хотели бы что бы вам позвонил курьер?",
-                          style: textStyle
-                        ),
+                        child: Text("Хотели бы что бы вам позвонил курьер?",
+                            style: textStyle),
                       ),
                       ListView.separated(
                           shrinkWrap: true,
@@ -82,10 +81,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left: 12, bottom: 12, top: 12),
-                                    child: Text(
-                                      list[index],
-                                      style: textindex
-                                    ),
+                                    child: Text(list[index], style: textindex),
                                   ),
                                 ],
                               ),
@@ -106,9 +102,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     const Padding(
-                        padding:
-                          EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
                         child: Text(
                           "Время доставка",
                           style: textStyle,
@@ -120,12 +115,15 @@ class _DeliveryPageState extends State<DeliveryPage> {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
-                                widget.disegnbloc.add(ActivIconEvent(index));
+                                widget.disegnbloc.add(OfficeEvent(index));
                               },
                               child: ListTile(
-                                leading: Icon(Icons.access_alarm),
-                                title: Text("Наличные",style: textOrder,),
-                                trailing: state.isactivList![index]
+                                leading: Image.asset(timeicons[index]),
+                                title: Text(
+                                  time[index].toString(),
+                                  style: textOrder,
+                                ),
+                                trailing: state.isOffList![index]
                                     ? SvgPicture.asset(
                                         "assets/home_/activ_.svg")
                                     : SvgPicture.asset(
@@ -136,7 +134,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                           separatorBuilder: (context, index) {
                             return Divider();
                           },
-                          itemCount: 2),
+                          itemCount: time.length),
                     ],
                   ),
                 ),
@@ -150,13 +148,9 @@ class _DeliveryPageState extends State<DeliveryPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     const Padding(
-                        padding:
-                            EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                        child: Text(
-                          "Выберите время",
-                          style: textStyle
-                        ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                        child: Text("Выберите время", style: textStyle),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
@@ -184,52 +178,9 @@ class _DeliveryPageState extends State<DeliveryPage> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 12),
-                  decoration: BoxDecoration(
-                      color: Color(0xffffffff),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                     const Padding(
-                        padding:
-                             EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                        child: Text(
-                          "Тип оплаты",
-                          style: textStyle
-                        ),
-                      ),
-                      ListView.separated(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                widget.disegnbloc.add(ActivIconEvent(index));
-                              },
-                              child: ListTile(
-                                leading: Icon(Icons.access_alarm),
-                                title: Text("Наличные",style: textOrder,),
-                                trailing: state.isactivList![index]
-                                    ? SvgPicture.asset(
-                                        "assets/home_/activ_.svg")
-                                    : SvgPicture.asset(
-                                        "assets/home_/not_activ_.svg"),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return Divider();
-                          },
-                          itemCount: 3),
-                    ],
-                  ),
-                ),
+                PaymentWidget(disegnbloc: widget.disegnbloc, state: state),
                 check(),
-                SizedBox(
-                  height: 100,
-                ),
+                Gap(100),
               ]),
               Positioned(
                   bottom: 0,
@@ -249,10 +200,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8))),
                             onPressed: () {},
-                            child:const Text(
-                              "Заказать",
-                              style:buttontext 
-                            )),
+                            child: const Text("Заказать", style: buttontext)),
                       )
                     ],
                   )),
@@ -265,5 +213,3 @@ class _DeliveryPageState extends State<DeliveryPage> {
     );
   }
 }
-
-
