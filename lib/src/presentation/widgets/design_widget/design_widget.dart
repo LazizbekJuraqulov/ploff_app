@@ -20,10 +20,8 @@ class DesignPage extends StatefulWidget {
   @override
   State<DesignPage> createState() => _DesignPageState();
 }
-
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   TabController? tabController;
-
   late int activIndex;
   List<MapObject> mapObjects = [];
   late PlacemarkMapObject mapObject;
@@ -49,11 +47,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
         ),
       )
     ];
-
-    super.initState();
-  }
-
-  @override
+super.initState();}
+ @override
   Widget build(BuildContext context) {
     final disegnbloc = context.read<DisegnBlocBloc>();
     return BlocBuilder<DisegnBlocBloc, DisegnBlocState>(
@@ -191,10 +186,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                                           rotationType: RotationType.noRotation,
                                         ),
                                       ),
-                                    );
-
-                                    disegnbloc.add(
-                                      LocaltionEvent(localtion: activIndex),
+                                    ); disegnbloc.add(LocaltionEvent(localtion: activIndex),
                                     );
                                     mapObjects.add(mapObjectw);
                                   },
@@ -215,8 +207,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                               },
                               separatorBuilder: (context, index) {
                                 return const Divider();
-                              },
-                              itemCount: 5),
+                              },itemCount: 5),
                         ),
                       ],
                     ),
@@ -227,9 +218,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                   ),
                   check(),
                   const Gap(100),
-              
                 ]),
-              ButtonWidget()
+                ButtonWidget()
               ],
             ),
           ]),

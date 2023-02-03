@@ -30,12 +30,11 @@ class ButtonWidget extends StatelessWidget {
                       minimumSize: Size(MediaQuery.of(context).size.width, 52),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
-                  onPressed: () async {
-                    RequestCompOrder.setcompRequest();
-                    final body = RequestOrder.setRequest();
-                    print(body);
-                    HiveBox.getbox().clear();
-                    Navigator.pushAndRemoveUntil(
+                  onPressed: ()  {
+                          RequestCompOrder.setcompRequest();
+                          HiveBox.getbox().clear();
+                          final body = RequestOrder.setRequest();
+                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                             builder: ((context) => BlocProvider(
@@ -46,6 +45,7 @@ class ButtonWidget extends StatelessWidget {
                                   child: const NavBar(),
                                 ))),
                         (route) => false);
+                          print(body);
                   },
                   child: const Text("Заказать", style: buttontext)),
             )
