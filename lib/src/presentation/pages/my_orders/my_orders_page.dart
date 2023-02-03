@@ -76,7 +76,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           state.orders.orders.isEmpty?  isEmptyWidget():
             Container(
               child: ListView.builder(
-                  itemCount: state.orders.orders.length,
+                  itemCount: state.orders.orders[0].length,
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.only(top: 18),
@@ -129,11 +129,11 @@ class _MyOrdersPageState extends State<MyOrdersPage>
                           color: Color(0xffffffff),
                           borderRadius: BorderRadius.circular(12)),
                       child: Column(
-                        children: [
+                        children:  [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
+                            children:[
+                             const Text(
                                 "Заказ №124",
                                 style: TextStyle(
                                     fontSize: 17,

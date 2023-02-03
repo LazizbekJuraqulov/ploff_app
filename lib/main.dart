@@ -36,7 +36,7 @@ void main() async {
                       create: (context) => NavbarBloc()..add(IntilPage()),
                       child: const NavBar(),
                       
-                    ),
+                   ),
                     BlocProvider(
                       create: (context) =>MyOrdersBloc()..add(OrdersEvent()),
                       child: MyOrdersPage(),

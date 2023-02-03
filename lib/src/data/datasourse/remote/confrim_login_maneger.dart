@@ -12,8 +12,8 @@ class ConfirmLoginApi {
       }),
     );
 
-  //   SharedPreferences token = await SharedPreferences.getInstance();
-  // token.setString("token", respons.data['access_token']);
+    SharedPreferences token = await SharedPreferences.getInstance();
+  token.setString("token", respons.data['access_token']);
 
     return respons;
   }

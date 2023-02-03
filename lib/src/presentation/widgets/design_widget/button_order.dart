@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/constants/textStyle.dart';
 import 'package:ploff_app/src/data/datasourse/local/hive_box.dart';
+import 'package:ploff_app/src/data/datasourse/remote/compute_price.dart';
+import 'package:ploff_app/src/data/datasourse/remote/request.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/index_stack/index_stack.dart';
 
@@ -29,6 +31,9 @@ class ButtonWidget extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
                   onPressed: () async {
+                    RequestCompOrder.setcompRequest();
+                    final body = RequestOrder.setRequest();
+                    print(body);
                     HiveBox.getbox().clear();
                     Navigator.pushAndRemoveUntil(
                         context,

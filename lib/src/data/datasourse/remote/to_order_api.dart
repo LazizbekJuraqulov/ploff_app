@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ploff_app/src/data/dto/to_order_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyOrderApi {
   static Future<GetOrderModel> disegn() async {
@@ -11,6 +12,8 @@ class MyOrderApi {
               'shipper': 'd4b1658f-3271-4973-8591-98a82939a664'
             }));
     final post = GetOrderModel.fromJson(respones.data);
+     SharedPreferences client = await SharedPreferences.getInstance();
+    
     return post;
   }
 }
