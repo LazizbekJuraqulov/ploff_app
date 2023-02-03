@@ -53,5 +53,10 @@ class NavbarBloc extends Bloc<NavbarEvent, NavbarState> {
 
       emit(Active(2,  false, "", ""));
     });
+    on<Transfer3Event>((event, emit) {
+      final state = this.state as Active;
+
+      emit(Active(2,  false, "", ""));
+    });
   }
 }

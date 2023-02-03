@@ -7,6 +7,7 @@ import 'package:ploff_app/src/data/datasourse/local/hive_class.dart';
 import 'package:ploff_app/src/data/dto/hive_product_model.dart';
 import 'package:ploff_app/src/data/dto/detel_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/home_bloc/banner/bloc/home_banner_bloc.dart';
+import 'package:ploff_app/src/presentation/bloc/my_orders/bloc/my_orders_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/splashscreen/splash_screen_bloc.dart';
@@ -31,6 +32,15 @@ void main() async {
   runApp(MultiBlocProvider(providers: [
     
     BlocProvider(create: (context) => HomeBannerBloc()..add(HomeInit())),
+    BlocProvider(
+                      create: (context) => NavbarBloc()..add(IntilPage()),
+                      child: const NavBar(),
+                      
+                    ),
+                    BlocProvider(
+                      create: (context) =>MyOrdersBloc()..add(OrdersEvent()),
+                      child: MyOrdersPage(),
+                    )
   ], child: const MyApp()));
 }
 

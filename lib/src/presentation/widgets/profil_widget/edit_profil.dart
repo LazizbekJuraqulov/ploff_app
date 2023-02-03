@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfil extends StatefulWidget {
@@ -22,6 +23,7 @@ class _EditProfilState extends State<EditProfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -31,6 +33,12 @@ class _EditProfilState extends State<EditProfil> {
               color: Color(0xff000000),
               fontWeight: FontWeight.w600),
         ),
+        leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: SvgPicture.asset("assets/svg_icons/close.svg"),
+              )
       ),
       body: Column(
         children: [

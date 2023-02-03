@@ -16,4 +16,7 @@ class Transfer extends NavbarEvent {
 }
 class MyOrderTransferEvent extends NavbarEvent {
   
-}
+ }
+class Transfer3Event extends NavbarEvent{
+  
+} 

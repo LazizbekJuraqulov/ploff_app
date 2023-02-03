@@ -173,8 +173,8 @@ class _ProductOrderState extends State<ProductOrder> {
                                     ),
                                   ),
                                   Text(
-                                    (state.postmen!.outPrice * state.price)
-                                        .toString(),
+                                    ("${state.postmen!.outPrice * state.price} сум"),
+                                        
                                     style: const TextStyle(
                                         fontSize: 17,
                                         color: Color(0xff000000),
@@ -192,11 +192,15 @@ class _ProductOrderState extends State<ProductOrder> {
                                           borderRadius:
                                               BorderRadius.circular(8))),
                                   onPressed: () async {
-                                    HiveProductModel mData = hiveModel(state,state.price);
+                                    HiveProductModel mData =
+                                        hiveModel(state, state.price);
 
                                     final moviesBox = HiveBox.getbox();
-                                    await moviesBox.put(mData.id, mData,);
-                                  
+                                    await moviesBox.put(
+                                      mData.id,
+                                      mData,
+                                    );
+
                                     //orderbloc.add(AddProduct(product: mData));
                                   },
                                   child: const Text(

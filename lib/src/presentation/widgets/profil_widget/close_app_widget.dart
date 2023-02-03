@@ -18,68 +18,68 @@ class CloseWidget extends StatelessWidget {
                   context: context,
                   builder: ((context) {
                     return AlertDialog(
-                      content: Container(
-                        width: 100,
-                        height: 100,
-                        child: Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                                "Вы хотите выйти из своей учетной записи?"),
-                            Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(
-                                                8),
-                                        color: Color(0xfff5f5f5)),
-                                    child: Text(
-                                      "отмена",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xff000000),
-                                          fontWeight:
-                                              FontWeight.w600),
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    alignment: Alignment.center,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(
-                                                8),
-                                        color: Color(0xffFFCC00)),
-                                    child: Text(
-                                      "выход",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xff000000),
-                                          fontWeight:
-                                              FontWeight.w600),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
+        actionsAlignment: MainAxisAlignment.center,
+        actionsPadding: EdgeInsets.only(bottom: 16),
+        contentPadding: EdgeInsets.only(left: 16,right: 16),
+        
+          
+          title:const Center(
+            child: Text(
+              "Bнимание!",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xff0000000),
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+          content: const Padding(
+          
+            padding: EdgeInsets.all(16),
+            child: Text("Вы уверены, что хотите удалить учётную записъ ?",style: TextStyle(color: Color(0xff858585),fontSize: 15,fontWeight: FontWeight.w400),),
+          ),
+          actions: [
+             InkWell(
+                 onTap: () {
+                   Navigator.pop(context);
+                 },
+                 child: Container(
+                   padding: EdgeInsets.only(
+                       left: 40, top: 14, right: 40, bottom: 14),
+                   decoration: BoxDecoration(
+                       color: Color(0xffF2F2F2),
+                       borderRadius: BorderRadius.circular(8)),
+                   child: const Text(
+                     "Нет",
+                     style: TextStyle(
+                         fontSize: 15,
+                         color: Color(0xff0000000),
+                         fontWeight: FontWeight.w600),
+                   ),
+                 )),
+                  const SizedBox(
+               width: 12,
+             ),
+                  InkWell(
+                 onTap: () async{
+                   
+                  
+                 },
+                 child: Container(
+                   padding: EdgeInsets.only(
+                       left: 40, top: 14, right: 40, bottom: 14),
+                   decoration: BoxDecoration(
+                       color: Color(0xffF5C109),
+                       borderRadius: BorderRadius.circular(8)),
+                   child: const Text(
+                     "Да",
+                     style: TextStyle(
+                         fontSize: 15,
+                         color: Color(0xff0000000),
+                         fontWeight: FontWeight.w600),
+                   ),
+                 )),
+          ],
+        );
                   }));
             },
             child: Container(

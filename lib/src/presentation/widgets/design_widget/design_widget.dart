@@ -7,7 +7,8 @@ import 'package:gap/gap.dart';
 import 'package:ploff_app/src/constants/textStyle.dart';
 import 'package:ploff_app/src/presentation/bloc/design_bloc/bloc/disegn_bloc_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/navbar/navbar_bloc.dart';
-import 'package:ploff_app/src/presentation/widgets/design_widget/button_order_widget.dart';
+import 'package:ploff_app/src/presentation/pages/index_stack/index_stack.dart';
+import 'package:ploff_app/src/presentation/widgets/design_widget/button_order.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/check_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/delivery_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/design_widget/payment_widget.dart';
@@ -226,39 +227,9 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                   ),
                   check(),
                   const Gap(100),
-                  //Oformit(),
+              
                 ]),
-                Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child:Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 12),
-                                color: Color(0xffffffff),
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 16, bottom: 16, top: 16),
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(
-                                            MediaQuery.of(context).size.width,
-                                            52),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8))),
-                                    onPressed: () {
-                                      // final bloc = context.read<NavbarBloc>();
-                                      // bloc.add(MyOrderTransferEvent());
-                                      // Navigator.pushNamedAndRemoveUntil(context,
-                                      //     "navbar",context.read<NavbarBloc>().add(MyOrderTransferEvent()),);
-                                          
-                                    },
-                                    child: const Text("Заказать",
-                                        style: buttontext)),
-                              )
-                            ],
-                          )),
+              ButtonWidget()
               ],
             ),
           ]),
