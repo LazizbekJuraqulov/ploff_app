@@ -76,7 +76,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           state.orders.orders.isEmpty?  isEmptyWidget():
             Container(
               child: ListView.builder(
-                  itemCount: state.orders.orders[0].length,
+                  itemCount: state.orders.orders.length,
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.only(top: 18),
