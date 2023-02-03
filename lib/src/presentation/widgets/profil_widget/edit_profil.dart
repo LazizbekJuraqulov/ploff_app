@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfil extends StatefulWidget {
   EditProfil({
-    super.key,required this.namecontroller,//required this.nomercontroller
+    super.key,
   });
-  TextEditingController namecontroller = TextEditingController();
-  //TextEditingController nomercontroller = TextEditingController();
+ 
 
   @override
   State<EditProfil> createState() => _EditProfilState();
 }
 
 class _EditProfilState extends State<EditProfil> {
+  TextEditingController? nameController;
+  @override
+  
   
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class _EditProfilState extends State<EditProfil> {
                       SizedBox(
                         height: 48,
                         child: TextFormField(
-                          controller: widget.namecontroller,
+                          
                           style: const TextStyle(fontSize: 15),
                           decoration: InputDecoration(
                             isDense: true,

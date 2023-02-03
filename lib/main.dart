@@ -12,6 +12,7 @@ import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc
 import 'package:ploff_app/src/presentation/bloc/splashscreen/splash_screen_bloc.dart';
 import 'package:ploff_app/src/presentation/pages/basket/basket_page.dart';
 import 'package:ploff_app/src/presentation/pages/home/home_page.dart';
+import 'package:ploff_app/src/presentation/pages/index_stack/index_stack.dart';
 import 'package:ploff_app/src/presentation/pages/my_orders/my_orders_page.dart';
 import 'package:ploff_app/src/presentation/pages/profile/profile_page.dart';
 import 'package:ploff_app/src/presentation/pages/registration/registration_page.dart';
@@ -28,6 +29,7 @@ void main() async {
   await Hive.openBox<HiveProductModel>("hiveProduct");
 
   runApp(MultiBlocProvider(providers: [
+    
     BlocProvider(create: (context) => HomeBannerBloc()..add(HomeInit())),
   ], child: const MyApp()));
 }

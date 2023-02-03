@@ -18,11 +18,11 @@ class OrderproductBloc extends Bloc<OrderproductEvent, OrderproductState> {
     on<OrderproductEvent>((event, emit) {});
 
     on<InitilEvent>((event, emit) {
-      emit(OrderState(price: 1));
+      emit(OrderState(price: 1,isTrue: false));
     });
     on<OrderProduct>((event, emit) async {
       final states = await DetelApi.productHive(event.text!);
-      emit(OrderState(postmen: states, price: 1));
+      emit(OrderState(postmen: states, price: 1,isTrue: false));
     });
     on<IncrementEvent>((event, emit) {
       final state = this.state as OrderState;
@@ -38,20 +38,6 @@ class OrderproductBloc extends Bloc<OrderproductEvent, OrderproductState> {
       }
     });
 
-    // on<LoadProduct>((event, emit) async {
-    //   final state = this.state as OrderState;
-    //   Box box = await hiveDataBase.openBox();
-    //   List<IdProduct> product = hiveDataBase.getProduct(box);
-    //   emit(state.copyWith(listProduct: product));
-    // });
-    // on<UpdateProduct>((event, emit) async {
-    //   final state = this.state as OrderState;
-    //   Box box = await hiveDataBase.openBox();
-    //   if (state is OrderState) {
-    //     await hiveDataBase.updateProduct(box, event.product);
-    //     emit(state.copyWith(listProduct: hiveDataBase.getProduct(box)));
-    //   }
-    // });
     on<AddProduct>((event, emit) async {
       final state = this.state as OrderState;
       final hivedabase = HiveDataBase();

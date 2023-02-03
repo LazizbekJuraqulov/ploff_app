@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:ploff_app/src/presentation/bloc/my_orders/bloc/my_orders_bloc.dart';
+import 'package:ploff_app/src/presentation/widgets/my_orders_widget/isEmpty_widget.dart';
 
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({super.key});
@@ -72,7 +73,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
             ),
           ),
           body: TabBarView(controller: _tabController, children: [
-            //isEmptyWidget(),
+          state.orders.orders.isEmpty?  isEmptyWidget():
             Container(
               child: ListView.builder(
                   itemCount: state.orders.orders.length,
@@ -205,51 +206,3 @@ class _MyOrdersPageState extends State<MyOrdersPage>
   }
 }
 
-class isEmptyWidget extends StatelessWidget {
-  const isEmptyWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
-            children: [
-              SizedBox(),
-            ],
-          ),
-          Column(
-            children: [
-              Image.asset("assets/home_/orders.png"),
-              SizedBox(
-                height: 32,
-              ),
-              Text("У вас нет активных заказов")
-            ],
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("assets/img/insta.png"),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Image.asset("assets/img/teg.png"),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Image.asset("assets/img/facbook.png"),
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}

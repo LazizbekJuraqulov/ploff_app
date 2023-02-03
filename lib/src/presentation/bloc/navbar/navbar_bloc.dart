@@ -48,5 +48,10 @@ class NavbarBloc extends Bloc<NavbarEvent, NavbarState> {
 
       emit(Active(0,  false, "", ""));
     });
+    on<MyOrderTransferEvent>((event, emit) {
+      final state = this.state as Active;
+
+      emit(Active(2,  false, "", ""));
+    });
   }
 }

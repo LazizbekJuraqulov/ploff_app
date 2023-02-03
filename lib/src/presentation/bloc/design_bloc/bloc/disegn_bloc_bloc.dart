@@ -13,10 +13,9 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
       final branchs = await DesignApi.disegn();
       emit(DisegnState(
           isactivList: List.generate(10, (index) => false),
-           isOffList: List.generate(10, (index) => false),
-            isPayList: List.generate(10, (index) => false),
-            isLocList: List.generate(10, (index) => false),
-
+          isOffList: List.generate(10, (index) => false),
+          isPayList: List.generate(10, (index) => false),
+          isLocList: List.generate(10, (index) => false),
           activIconIndex: 0,
           branch: branchs,
           latitude: 41.311081,
@@ -24,6 +23,8 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
     });
     on<ActivIconEvent>((event, emit) {
       final state = this.state as DisegnState;
+
+        state.isactivList![0] = true;
       for (var i = 0; i < state.isactivList!.length; i++) {
         if (i == event.activIconIndex) {
           state.isactivList![i] = true;
@@ -37,7 +38,7 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
     });
     on<LocaltionEvent>((event, emit) async {
       final state = this.state as DisegnState;
-         for (var i = 0; i < state.isLocList!.length; i++) {
+      for (var i = 0; i < state.isLocList!.length; i++) {
         if (i == event.localtion) {
           state.isactivList![i] = true;
         } else {
@@ -51,7 +52,7 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
           isactivList: state.isLocList,
           activIconIndex: event.localtion));
     });
-     on<PaymentEvent>((event, emit) {
+    on<PaymentEvent>((event, emit) {
       final state = this.state as DisegnState;
       for (var i = 0; i < state.isPayList!.length; i++) {
         if (i == event.indexPay) {
@@ -61,10 +62,9 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
         }
       }
       emit(state.copyWith(
-          isPayList: state.isPayList,
-          activIconIndex: event.indexPay));
+          isPayList: state.isPayList, activIconIndex: event.indexPay));
     });
-     on<OfficeEvent>((event, emit) {
+    on<OfficeEvent>((event, emit) {
       final state = this.state as DisegnState;
       for (var i = 0; i < state.isOffList!.length; i++) {
         if (i == event.indexOff) {
@@ -74,9 +74,7 @@ class DisegnBlocBloc extends Bloc<DisegnBlocEvent, DisegnBlocState> {
         }
       }
       emit(state.copyWith(
-          isOffList: state.isOffList,
-          activIconIndex: event.indexOff));
+          isOffList: state.isOffList, activIconIndex: event.indexOff));
     });
   }
 }
-

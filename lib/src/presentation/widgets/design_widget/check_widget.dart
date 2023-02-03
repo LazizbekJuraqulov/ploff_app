@@ -28,14 +28,15 @@ Container check() {
                         ),
                         ListView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics:const NeverScrollableScrollPhysics(),
                           itemCount: hivedata.length,
                           itemBuilder: (context, index) {
                           return ListTile(
                             title: Text(hivedata[index].title.toString()),
                             trailing: Text("${hivedata[index].outPrice * int.parse(hivedata[index].count)} сум"),
                           );
-                        })
+                        }),
+                        
                       ],
                     );
                   },

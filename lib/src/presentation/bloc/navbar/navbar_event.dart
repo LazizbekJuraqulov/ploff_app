@@ -14,3 +14,6 @@ class AfterPage extends NavbarEvent {
 class Transfer extends NavbarEvent {
   
 }
+class MyOrderTransferEvent extends NavbarEvent {
+  
+}

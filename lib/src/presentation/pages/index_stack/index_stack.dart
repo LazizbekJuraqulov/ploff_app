@@ -46,7 +46,7 @@ class _NavBarState extends State<NavBar> {
               ),
               BlocProvider(
                       create: (context) =>MyOrdersBloc()..add(OrdersEvent()),
-                      child: MyOrdersPage(),),
+                      child: const MyOrdersPage(),),
               BlocProvider(
                 create: ((context) =>
                     RegisterBloc()..add(RegisterInitialEvent())),

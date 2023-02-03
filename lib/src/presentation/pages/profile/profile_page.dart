@@ -69,14 +69,12 @@ class _ProfilPageState extends State<ProfilPage> {
                           ),
                           trailing: InkWell(
                             onTap: () async{
-                              SharedPreferences pref =
-                            await SharedPreferences.getInstance();
-                              nameController=(pref.getString("phone"))as TextEditingController;
+                             
 
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return EditProfil(namecontroller:nameController ,);
-                              // }));
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return EditProfil();
+                              }));
                             },
                             child: SvgPicture.asset(
                                 "assets/profil_icons/profil.svg"),

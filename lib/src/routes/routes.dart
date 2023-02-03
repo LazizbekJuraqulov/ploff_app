@@ -26,7 +26,7 @@ class RoutesPage {
         return MaterialPageRoute(builder: (context) {
           return BlocProvider(
                       create: (context) =>SplashScreenBloc()..add(NavigateToHomeScreenEvent()),
-                      child: SpleshScreen(),
+                      child: const SpleshScreen(),
                     );;
         });
         
@@ -34,7 +34,7 @@ class RoutesPage {
        return MaterialPageRoute(builder: (context) {
           return BlocProvider(
                       create: (context) => NavbarBloc()..add(IntilPage()),
-                      child: NavBar(),
+                      child: const NavBar(),
                     );
         });
       
@@ -54,7 +54,7 @@ class RoutesPage {
           return BlocProvider(
                       create: (context) =>MyOrdersBloc()..add(OrdersEvent()),
                       child: MyOrdersPage(),
-                    );;
+                    );
         });
         
        case "profil":
@@ -62,7 +62,7 @@ class RoutesPage {
           return BlocProvider(
                       create: (context) =>RegisterBloc()..add(RegisterInitialEvent()),
                       child: ProfilPage(name: "",nomer: "",),
-                    );;
+                    );
         });
        
          case "design":
