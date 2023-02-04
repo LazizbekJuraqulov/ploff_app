@@ -6,8 +6,9 @@ abstract class RegisterState {}
 class RegisterInitial extends RegisterState {}
 
 class Phone extends RegisterState {
-TextEditingController numberController = TextEditingController();
- TextEditingController codeController = TextEditingController();
- TextEditingController nameController = TextEditingController();
-
+  bool? isTrue;
+  TextEditingController numberController = TextEditingController();
+  TextEditingController codeController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  Phone({this.isTrue});
 }

@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart';
 import 'package:ploff_app/src/presentation/bloc/register_bloc/bloc/register_bloc.dart';
 import 'package:ploff_app/src/presentation/widgets/profil_widget/close_app_widget.dart';
 import 'package:ploff_app/src/presentation/widgets/profil_widget/edit_profil.dart';
@@ -21,9 +22,10 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-  TextEditingController nameController=TextEditingController();
+  TextEditingController nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<RegisterBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
       if (state is Phone) {
         return Scaffold(
@@ -68,9 +70,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                 fontWeight: FontWeight.w500),
                           ),
                           trailing: InkWell(
-                            onTap: () async{
-                             
-
+                            onTap: () async {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
                                 return EditProfil();
@@ -115,3 +115,5 @@ class _ProfilPageState extends State<ProfilPage> {
     });
   }
 }
+
+

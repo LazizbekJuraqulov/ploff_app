@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:ploff_app/src/data/datasourse/remote/confrim_login_maneger.dart';
 import 'package:ploff_app/src/data/datasourse/remote/phone_api_manager.dart';
 import 'package:ploff_app/src/data/datasourse/remote/register_confrim.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -26,9 +27,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         state.numberController.text,
       );
     });
-    on<RegisterConfirmEvent>((event, emit) async {
+    on<ConfirmLoginEvent>((event, emit) async {
       final state = this.state as Phone;
-      
+      SharedPreferences nomer = await SharedPreferences.getInstance();
+      final isAvtive = await (nomer.setBool("Active", event.isRegister));
+      event.isRegister = !event.isRegister;
+      emit(Phone(isTrue: isAvtive));
     });
   }
 }

@@ -58,5 +58,12 @@ class NavbarBloc extends Bloc<NavbarEvent, NavbarState> {
 
       emit(Active(2,  false, "", ""));
     });
+     on<CloseTranferEvent>((event, emit) async{
+      final state = this.state as Active;
+       SharedPreferences nomer = await SharedPreferences.getInstance();
+      final isAvtive = await (nomer.setBool("Active", event.isBool));
+      event.isBool = !event.isBool;
+      emit(Active(0,  false, "", ""));
+    });
   }
 }

@@ -11,12 +11,13 @@ class AfterPage extends NavbarEvent {
   AfterPage(this.activeIndex, this.context);
 }
 
-class Transfer extends NavbarEvent {
-  
+class Transfer extends NavbarEvent {}
+
+class MyOrderTransferEvent extends NavbarEvent {}
+
+class Transfer3Event extends NavbarEvent {}
+
+class CloseTranferEvent extends NavbarEvent {
+  bool isBool = true;
+  CloseTranferEvent({required this.isBool});
 }
-class MyOrderTransferEvent extends NavbarEvent {
-  
- }
-class Transfer3Event extends NavbarEvent{
-  
-} 
