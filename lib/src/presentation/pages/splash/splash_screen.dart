@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_app/src/presentation/bloc/splashscreen/splash_screen_bloc.dart';
+import 'package:ploff_app/src/presentation/pages/index_stack/index_stack.dart';
 import 'package:ploff_app/src/presentation/widgets/splash_widget/language%20selection.dart';
 import 'package:ploff_app/src/presentation/widgets/splash_widget/splash_screen_widget.dart';
 
@@ -30,7 +31,7 @@ class _SpleshScreenState extends State<SpleshScreen> {
       if (state is Loading) {
         return SplashScreenWidget();
       } else if (state is Loaded) {
-        return SelectLang();
+        return NavBar();
       } else {
         return CircularProgressIndicator();
       }

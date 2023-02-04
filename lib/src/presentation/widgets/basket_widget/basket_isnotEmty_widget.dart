@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ploff_app/src/data/datasourse/local/hive_box.dart';
 import 'package:ploff_app/src/data/datasourse/local/hive_class.dart';
 import 'package:ploff_app/src/data/dto/hive_product_model.dart';
 import 'package:ploff_app/src/presentation/bloc/bloc/orderproduct_bloc.dart';
-import 'package:ploff_app/src/presentation/widgets/basket_widget/basket_count.dart';
+import 'package:ploff_app/src/presentation/widgets/basket_widget/basket_delete.dart';
 
 class BasketisNotEmpty extends StatelessWidget {
   const BasketisNotEmpty({
@@ -64,9 +65,9 @@ class BasketisNotEmpty extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(data[index].title),
+                                        Text(data[index].title,style: TextStyle(fontSize: 17,color: Color(0xff2b2b2b),fontWeight: FontWeight.w600),),
                                         Text(
-                                            "${data[index].outPrice * int.parse(data[index].count)} сум"),
+                                            "${data[index].outPrice * int.parse(data[index].count)} сум",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Color(0xff000000)),),
                                       ],
                                     ),
                                     Column(
@@ -83,15 +84,16 @@ class BasketisNotEmpty extends StatelessWidget {
                                             child: SvgPicture.asset(
                                                 "assets/home_/delete.svg")),
                                         Container(
+                                          padding: EdgeInsets.only(top: 4,left: 8,right: 8,bottom: 4),
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(12),
                                               border: Border.all(width: 0.5)),
                                           child: Row(
                                             children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    var counter = int.parse(
+                                             
+                                                   InkWell(
+                                              onTap: (){  var counter = int.parse(
                                                         data[index].count);
                                                     if (counter > 1) {
                                                       counter--;
@@ -100,23 +102,24 @@ class BasketisNotEmpty extends StatelessWidget {
                                                           data[index].copyWith(
                                                               count: counter
                                                                   .toString()));
-                                                    }
-                                                  },
-                                                  icon: Icon(Icons.remove)),
+                                                    }},
+                                                     child: Text("-",style: TextStyle(fontSize: 30),),
+                                             ),
+                                             Gap(16),
                                               Text(
                                                   data[index].count.toString()),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    var counter = int.parse(
+                                                  Gap(16),
+                                             InkWell(
+                                              onTap: (){ var counter = int.parse(
                                                         data[index].count);
                                                     counter++;
                                                     box.put(
                                                         data[index].id,
                                                         data[index].copyWith(
                                                             count: counter
-                                                                .toString()));
-                                                  },
-                                                  icon: Icon(Icons.add)),
+                                                                .toString()));},
+                                                                child: Text("+",style: TextStyle(fontSize: 25),),
+                                             )
                                             ],
                                           ),
                                         )
