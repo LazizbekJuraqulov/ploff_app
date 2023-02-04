@@ -76,7 +76,10 @@ class _SelectLangState extends State<SelectLang> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "navbar", (route) => false);
+                },
                 child: Container(
                   margin: EdgeInsets.only(top: 16),
                   alignment: Alignment.center,
@@ -100,7 +103,8 @@ class _SelectLangState extends State<SelectLang> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {Navigator.pushNamedAndRemoveUntil(
+                      context, "navbar", (route) => false);},
                 child: Container(
                   margin: EdgeInsets.only(top: 16),
                   alignment: Alignment.center,

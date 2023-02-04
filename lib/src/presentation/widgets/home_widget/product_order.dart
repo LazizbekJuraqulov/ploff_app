@@ -33,192 +33,202 @@ class _ProductOrderState extends State<ProductOrder> {
       builder: (context, state) {
         if (state is OrderState) {
           return Scaffold(
-            body: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                    pinned: false,
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: SvgPicture.asset("assets/home_/fres.svg"),
-                      ),
-                    ],
-                    leading: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 16,
-                        ),
-                        child: SvgPicture.asset("assets/home_/appicon.svg"),
-                      ),
-                    ),
-                    expandedHeight: 240,
-                    flexibleSpace: Stack(
-                      children: [
-                        Positioned(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image:
-                                        AssetImage("assets/home_/rest.jpg"))),
+            body: Stack(
+              children: [
+                CustomScrollView(
+                shrinkWrap: true,
+                  slivers: [
+                    SliverAppBar(
+                        
+                        actions: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: SvgPicture.asset("assets/home_/fres.svg"),
+                          ),
+                        ],
+                        leading: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                            ),
+                            child: SvgPicture.asset("assets/home_/appicon.svg"),
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 7,
-                            decoration: const BoxDecoration(
-                                color: Color(0xffffffff),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(12),
-                                    topRight: Radius.circular(12))),
-                          ),
-                        ),
-                      ],
-                    )),
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height*0.63,
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
+                        expandedHeight: 240,
+                        flexibleSpace: Stack(
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(16),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(12),
-                                    bottomRight: Radius.circular(12)),
-                                color: Color(0xffffffff),
+                            Positioned(
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image:
+                                            AssetImage("assets/home_/rest.jpg"))),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    state.postmen!.title.ru.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 17,
-                                        color: Color(0xff2B2A28),
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Gap(12),
-                                  const Text(
-                                    "Своим именем чайханский плов обязан старой ташкентской традиции «ош», когда мужчины собираются по четвергам в чайхане собственно «на ош», что означает «на плов».",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xff858585),
-                                        fontWeight: FontWeight.w400),
-                                  )
-                                ],
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 7,
+                                decoration: const BoxDecoration(
+                                    color: Color(0xffffffff),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12))),
                               ),
                             ),
                           ],
-                        ),
-                        Column(
+                        )),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(16),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(12),
-                                    bottomRight: Radius.circular(12)),
-                                color: Color(0xffffffff),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Размер*",
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        color: Color(0xff2B2A28),
-                                        fontWeight: FontWeight.w600),
+                            Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(16),
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12),
+                                        bottomRight: Radius.circular(12)),
+                                    color: Color(0xffffffff),
                                   ),
-                                  Gap(12),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        children: [
-                                          TextButton(
-                                              onPressed: () {
-                                                orderbloc.add(DecrementEvent());
-                                              },
-                                              child: const Text(
-                                                "-",
-                                                style: TextStyle(
-                                                    color: Color(0xff24292E),
-                                                    fontSize: 20),
-                                              )),
-                                          Text(
-                                            state.price.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff141414)),
-                                          ),
-                                          TextButton(
-                                              onPressed: () {
-                                                orderbloc.add(IncrementEvent());
-                                              },
-                                              child: const Text(
-                                                "+",
-                                                style: TextStyle(
-                                                    color: Color(0xff24292E),
-                                                    fontSize: 20),
-                                              )),
-                                        ],
-                                      ),
                                       Text(
-                                        ("${state.postmen!.outPrice * state.price} сум"),
+                                        state.postmen!.title.ru.toString(),
                                         style: const TextStyle(
                                             fontSize: 17,
-                                            color: Color(0xff000000),
+                                            color: Color(0xff2B2A28),
                                             fontWeight: FontWeight.w600),
                                       ),
-                                    ],
-                                  ),
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          minimumSize: Size(
-                                              MediaQuery.of(context).size.width,
-                                              52),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8))),
-                                      onPressed: () async {
-                                        HiveProductModel mData =
-                                            hiveModel(state, state.price);
-
-                                        final moviesBox = HiveBox.getbox();
-                                        await moviesBox.put(
-                                          mData.id,
-                                          mData,
-                                        );
-                                      },
-                                      child: const Text(
-                                        "Добавить в корзину ",
+                                      Gap(12),
+                                      const Text(
+                                        "Своим именем чайханский плов обязан старой ташкентской традиции «ош», когда мужчины собираются по четвергам в чайхане собственно «на ош», что означает «на плов».",
                                         style: TextStyle(
                                             fontSize: 15,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xff000000)),
-                                      )),
-                                ],
-                              ),
+                                            color: Color(0xff858585),
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
+                           
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                    
+                  ],
                 ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,right: 0,
+                  child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(16),
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(12),
+                                          bottomRight: Radius.circular(12)),
+                                      color: Color(0xffffffff),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Размер*",
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: Color(0xff2B2A28),
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        Gap(12),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      orderbloc.add(DecrementEvent());
+                                                    },
+                                                    child: const Text(
+                                                      "-",
+                                                      style: TextStyle(
+                                                          color: Color(0xff24292E),
+                                                          fontSize: 20),
+                                                    )),
+                                                Text(
+                                                  state.price.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: Color(0xff141414)),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      orderbloc.add(IncrementEvent());
+                                                    },
+                                                    child: const Text(
+                                                      "+",
+                                                      style: TextStyle(
+                                                          color: Color(0xff24292E),
+                                                          fontSize: 20),
+                                                    )),
+                                              ],
+                                            ),
+                                            Text(
+                                              ("${state.postmen!.outPrice * state.price} сум"),
+                                              style: const TextStyle(
+                                                  fontSize: 17,
+                                                  color: Color(0xff000000),
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                minimumSize: Size(
+                                                    MediaQuery.of(context).size.width,
+                                                    52),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(8))),
+                                            onPressed: () async {
+                                              HiveProductModel mData =
+                                                  hiveModel(state, state.price);
+                    
+                                              final moviesBox = HiveBox.getbox();
+                                              await moviesBox.put(
+                                                mData.id,
+                                                mData,
+                                              );
+                                            },
+                                            child: const Text(
+                                              "Добавить в корзину ",
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xff000000)),
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),)
               ],
             ),
           );
